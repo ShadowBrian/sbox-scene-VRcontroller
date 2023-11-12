@@ -3,8 +3,11 @@
 # Scene Staging
 
 This repo is still based on the Scene Staging repo.
+
 This is a preliminary implementation of a physics based VR character controller.
+
 It supports 3 movement modes, 2 direction modes and 2 rotation modes.
+
 It also has a charge-up jump button.
 
 - ## Usage
