@@ -1,0 +1,220 @@
+{
+  "RootObject": {
+    "Id": "15aeff1d-1ba9-4198-9a91-927d2c940d01",
+    "Name": "vrplayer",
+    "Enabled": true,
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
+    "Tags": "",
+    "Components": [
+      {
+        "__type": "AnchorComponent",
+        "__enabled": true,
+        "UpdateType": "All"
+      },
+      {
+        "__type": "VRLegs",
+        "__enabled": true,
+        "FootBuffer": 5,
+        "Head": "421c18f7-33c1-493c-8483-49cbf8b19822",
+        "HeightOffset": 0,
+        "LedgeHopPower": 72,
+        "MaxStandableAngle": 35
+      },
+      {
+        "__type": "VRPlayerMovement",
+        "__enabled": true,
+        "Head": "421c18f7-33c1-493c-8483-49cbf8b19822",
+        "JoystickMovementSpeed": 4,
+        "JumpForce": 400,
+        "JumpForwardMult": 0.5,
+        "JumpUpMult": 1,
+        "LeftHand": "27cffa28-046b-49fd-8d98-a1247b845418",
+        "movementDirection": "Head",
+        "movementMethod": "ArmSwinger",
+        "OptionsMenu": "abb669a5-ddc5-413a-84f3-72e0c085f20a",
+        "RightHand": "d5fe9b06-4f25-44fc-a8f2-891a1f43b164",
+        "rotationMethod": "Snap",
+        "SmoothRotateSpeed": 60,
+        "SnapRotateIncrements": 30
+      },
+      {
+        "__type": "PhysicsComponent",
+        "__enabled": true,
+        "Gravity": true,
+        "Static": false
+      }
+    ],
+    "Children": [
+      {
+        "Id": "421c18f7-33c1-493c-8483-49cbf8b19822",
+        "Name": "Head",
+        "Enabled": true,
+        "Position": "0,0,0",
+        "Rotation": "0,0,0,1",
+        "Scale": "1,1,1",
+        "Tags": "player",
+        "Components": [
+          {
+            "__type": "CameraComponent",
+            "__enabled": true,
+            "BackgroundColor": "0.33333,0.46275,0.52157,1",
+            "ClearFlags": "Color, Depth, Stencil",
+            "FieldOfView": 90,
+            "Orthographic": false,
+            "OrthographicHeight": 1204,
+            "TargetEye": "Both",
+            "ZFar": 5000,
+            "ZNear": 1
+          },
+          {
+            "__type": "TrackedPoseComponent",
+            "__enabled": true,
+            "PoseSource": "Head",
+            "TrackingType": "All",
+            "UpdateType": "All",
+            "UseRelativeTransform": true
+          }
+        ]
+      },
+      {
+        "Id": "27cffa28-046b-49fd-8d98-a1247b845418",
+        "Name": "Left Hand",
+        "Enabled": true,
+        "Position": "0,0,0",
+        "Rotation": "0,0,0,0",
+        "Scale": "1,1,1",
+        "Tags": "",
+        "Components": [
+          {
+            "__type": "TrackedPoseComponent",
+            "__enabled": true,
+            "PoseSource": "LeftHand",
+            "TrackingType": "All",
+            "UpdateType": "All",
+            "UseRelativeTransform": true
+          }
+        ],
+        "Children": [
+          {
+            "Id": "da3bd340-d220-413b-a844-95f8329a32dd",
+            "Name": "Left Hand Model",
+            "Enabled": true,
+            "Position": "0,0,0",
+            "Rotation": "0,0,0,1",
+            "Scale": "0.8,0.8,0.8",
+            "Tags": "",
+            "Components": [
+              {
+                "__type": "AnimatedModelComponent",
+                "__enabled": true,
+                "BodyGroups": 18446744073709551615,
+                "CreateBoneObjects": false,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
+                "Model": "models/hands_discgolf/hand_toon_left.vmdl",
+                "ShouldCastShadows": true,
+                "Tint": "1,1,1,1"
+              },
+              {
+                "__type": "AnimateVRHand",
+                "__enabled": true,
+                "HandSide": "LeftHand"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Id": "d5fe9b06-4f25-44fc-a8f2-891a1f43b164",
+        "Name": "Right Hand",
+        "Enabled": true,
+        "Position": "0,0,0",
+        "Rotation": "0,0,0,0",
+        "Scale": "1,1,1",
+        "Tags": "",
+        "Components": [
+          {
+            "__type": "TrackedPoseComponent",
+            "__enabled": true,
+            "PoseSource": "RightHand",
+            "TrackingType": "All",
+            "UpdateType": "All",
+            "UseRelativeTransform": true
+          }
+        ],
+        "Children": [
+          {
+            "Id": "01bfb8ea-d52a-4104-a4eb-22cdb57da0c5",
+            "Name": "Right Hand Model",
+            "Enabled": true,
+            "Position": "0,0,0",
+            "Rotation": "0,0,0,1",
+            "Scale": "0.8,0.8,0.8",
+            "Tags": "",
+            "Components": [
+              {
+                "__type": "AnimatedModelComponent",
+                "__enabled": true,
+                "BodyGroups": 18446744073709551615,
+                "CreateBoneObjects": false,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
+                "Model": "models/hands_discgolf/hand_toon_right.vmdl",
+                "ShouldCastShadows": true,
+                "Tint": "1,1,1,1"
+              },
+              {
+                "__type": "AnimateVRHand",
+                "__enabled": true,
+                "HandSide": "RightHand"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Id": "abb669a5-ddc5-413a-84f3-72e0c085f20a",
+        "Name": "Object",
+        "Enabled": true,
+        "Position": "0,0,0",
+        "Rotation": "-0.000000002346994,-0.00000003950341,0.707107,0.7071065",
+        "Scale": "1,1,1",
+        "Tags": "",
+        "Components": [
+          {
+            "__type": "WorldPanel",
+            "__enabled": true,
+            "HorizontalAlign": "Center",
+            "LookAtCamera": false,
+            "PanelSize": "775.5,512",
+            "RenderScale": 1,
+            "VerticalAlign": "Center"
+          }
+        ],
+        "Children": [
+          {
+            "Id": "82dbc09f-71c5-468d-b249-aafc1a9402a6",
+            "Name": "Object",
+            "Enabled": true,
+            "Position": "0,0,0",
+            "Rotation": "0,0,1,-0.0000006397578",
+            "Scale": "1,1,1",
+            "Tags": "",
+            "Components": [
+              {
+                "__type": "SettingsUI",
+                "__enabled": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "__references": [
+    "shadb.hand_toon_left",
+    "shadb.hand_toon_right"
+  ]
+}

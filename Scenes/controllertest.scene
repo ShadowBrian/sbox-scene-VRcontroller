@@ -1,0 +1,88 @@
+{
+  "GameObjects": [
+    {
+      "Id": "fddb41bc-94fd-4f9a-994f-3657c15750bd",
+      "Name": "Map",
+      "Enabled": true,
+      "Position": "0,0,0",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Components": [
+        {
+          "__type": "MapComponent",
+          "__enabled": true,
+          "MapName": "hadyn.player_controller_test_course_v1"
+        }
+      ]
+    },
+    {
+      "Id": "88ee0d62-5822-4c01-b22b-12744226aca6",
+      "Name": "SkyBox",
+      "Enabled": true,
+      "Position": "0,0,0",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Components": [
+        {
+          "__type": "SkyBox2D",
+          "__enabled": true,
+          "SkyMaterial": "materials/skybox/light_test_sky_sunny.vmat",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "Id": "16bea1e9-0ad8-4040-9574-6d8c80d38f59",
+      "Name": "Directional Light",
+      "Enabled": true,
+      "Position": "0,0,0",
+      "Rotation": "-0.4003422,-0.3071933,0.5083043,-0.697843",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Components": [
+        {
+          "__type": "DirectionalLightComponent",
+          "__enabled": true,
+          "LightColor": "1,0.90436,0.79208,1",
+          "Shadows": false,
+          "SkyColor": "0.54056,0.71154,0.79703,1"
+        }
+      ]
+    },
+    {
+      "Id": "15aeff1d-1ba9-4198-9a91-927d2c940d01",
+      "Name": "VRPlayer",
+      "Enabled": true,
+      "Position": "335.4092,-252.6599,97.25797",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "__Prefab": "prefabs/vrplayer.object"
+    },
+    {
+      "Id": "73ea31d4-d9e1-48ac-bcb1-a00c04c407ba",
+      "Name": "Object",
+      "Enabled": true,
+      "Position": "0,0,0",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Components": [
+        {
+          "__type": "EnvmapComponent",
+          "__enabled": true,
+          "Bounds": {
+            "Mins": "-512,-512,-512",
+            "Maxs": "512,512,512"
+          },
+          "Projection": "Box",
+          "Texture": "textures/cubemaps/default2.vtex",
+          "TintColor": "1,1,1,1"
+        }
+      ]
+    }
+  ],
+  "__references": []
+}

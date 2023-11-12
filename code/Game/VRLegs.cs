@@ -1,0 +1,128 @@
+using Sandbox;
+using System;
+
+public sealed class VRLegs : BaseComponent
+{
+	public static VRLegs instance;
+
+	[Property] GameObject Head { get; set; }
+
+	[Property] float FootBuffer { get; set; } = 5f;
+
+	[Property] float MaxStandableAngle { get; set; } = 35f;
+
+	[Property] float LedgeHopPower { get; set; } = 90f;
+
+	[Property] public float HeightOffset { get; set; }
+
+	public bool Jumping { get; set; }
+
+	public bool Grounded;
+
+	public PhysicsComponent rigbod;
+
+	public override void OnAwake()
+	{
+		instance = this;
+		rigbod = GetComponent<PhysicsComponent>( false );
+	}
+
+
+	Vector3 ClampMagnitude( Vector3 vector, float maxMagnitude )
+	{
+		float currentMagnitude = vector.Length;
+
+		if ( currentMagnitude > maxMagnitude )// Check if the current magnitude is greater than the maximum allowed magnitude
+		{
+			vector = vector.Normal * maxMagnitude;// Normalize the vector and multiply by the desired magnitude to maintain direction
+		}
+
+		return vector;
+	}
+
+	bool JustLeftLedge = true;
+
+	Vector3 PositionDelta;
+
+	Vector3 LastPosition;
+
+	public PhysicsTraceResult facetr;
+
+	public override void FixedUpdate()
+	{
+		PositionDelta = Head.Transform.Position - LastPosition;//Keep track of head movement for wall detection.
+
+		var legtr = Physics.Trace.Ray( Head.Transform.Position, Head.Transform.Position.WithZ( Transform.Position.z - HeightOffset ) + Vector3.Down * FootBuffer ).WithoutTags( "player" ).Run();//Ground detection.
+
+		var ledgetr = Physics.Trace.Ray( Head.Transform.Position, Head.Transform.Position.WithZ( Transform.Position.z - HeightOffset ) + Vector3.Down * FootBuffer * 3f ).WithoutTags( "player" ).Run();//Ledge detection.
+
+		Grounded = legtr.Hit;
+
+		Vector3 clampedPosDelta = ClampMagnitude( PositionDelta, VRPlayerMovement.instance.movementMethod != VRPlayerMovement.MovementType.Teleport ? 80f : 1f );
+
+		clampedPosDelta.z = MathX.Clamp( clampedPosDelta.z, -20f, 20f );//Clamp the height a bit more agressively so the legs actually work when falling from high up.
+
+		facetr = Physics.Trace.Ray( Head.Transform.Position, Head.Transform.Position + clampedPosDelta * 2f ).Radius( 8f ).WithoutTags( "player" ).Run();//Face trace for keeping people from walking through walls.
+
+		if ( facetr.Hit )//Bounce player off the walls
+		{
+			rigbod.Velocity += facetr.Normal * 8f;
+			Transform.Position += facetr.Normal * PositionDelta.Length;
+		}
+
+		if ( Jumping )//Remove the ledge jump boost if you're already normal-jumping.
+		{
+			JustLeftLedge = true;
+		}
+
+		if ( Grounded && !Jumping )//Force the player to be ground level using rigidbody forces.
+		{
+			JustLeftLedge = false;
+
+			Vector3 PositionDelta = Transform.Position.WithZ( legtr.HitPosition.z + HeightOffset ) - (Transform.Position);
+
+			if ( facetr.Hit )
+			{
+				PositionDelta += facetr.Normal * 8f;
+			}
+
+			Vector3 VelocityTarget = (PositionDelta * 300f * Time.Delta) + new Vector3( rigbod.Velocity.x * 0.9f, rigbod.Velocity.y * 0.9f, 0 );
+
+			float standingAngle = Vector3.GetAngle( legtr.Normal, Vector3.Up );
+
+			if ( standingAngle > MaxStandableAngle )
+			{
+				VelocityTarget += Rotation.LookAt( legtr.Normal, Vector3.Up ).Down * standingAngle;
+			}
+
+			rigbod.Velocity = Vec3MoveTowards.MoveTowards( rigbod.Velocity, VelocityTarget, 1000f );
+		}
+		else if ( !JustLeftLedge && !ledgetr.Hit && !Jumping )//We just left a ledge, add a little boost for a ledge exit hop.
+		{
+			JustLeftLedge = true;
+
+			rigbod.Velocity = ClampMagnitude( (PositionDelta + Vector3.Up) * LedgeHopPower, 500f );
+		}
+
+		rigbod.AngularVelocity = Vector3.Zero;
+
+		LastPosition = Head.Transform.Position;
+	}
+}
+
+public class Vec3MoveTowards
+{
+	private const float Epsilon = 0.00001f;
+	public static Vector3 MoveTowards( Vector3 current, Vector3 target, float maxDistanceDelta )
+	{
+		Vector3 toVector = target - current;
+		float magnitude = toVector.Length;
+
+		if ( magnitude <= maxDistanceDelta || magnitude < Epsilon )
+		{
+			return target;
+		}
+
+		return current + toVector / magnitude * maxDistanceDelta;
+	}
+}

@@ -1,0 +1,41 @@
+{
+  "RootObject": {
+    "Id": "b090066e-d979-48e7-b9f8-33107ca6e61f",
+    "Name": "collision_indicator",
+    "Enabled": true,
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "0.3,0.3,0.3",
+    "Tags": "",
+    "Components": [
+      {
+        "__type": "SelfDestructComponent",
+        "__enabled": true,
+        "Seconds": 30
+      }
+    ],
+    "Children": [
+      {
+        "Id": "7fc02d55-80e8-44a2-9df7-cd9d9e4af8fa",
+        "Name": "Cube",
+        "Enabled": true,
+        "Position": "0,0,-0.0001",
+        "Rotation": "0,0,0,1",
+        "Scale": "0.3,0.3,0.3",
+        "Tags": "",
+        "Components": [
+          {
+            "__type": "ModelComponent",
+            "__enabled": true,
+            "BodyGroups": 18446744073709551615,
+            "MaterialOverride": "materials/default.vmat",
+            "Model": "models/dev/sphere.vmdl",
+            "ShouldCastShadows": false,
+            "Tint": "0.67643,1,0.14851,1"
+          }
+        ]
+      }
+    ]
+  },
+  "__references": []
+}
