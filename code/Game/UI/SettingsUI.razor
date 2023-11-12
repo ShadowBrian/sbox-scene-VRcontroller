@@ -118,11 +118,6 @@
 
 	private void CycleOption(List<string> options, int index, string type)
 	{
-		// Cycle through options using joystick input
-		// You may need to adjust this logic based on your input handling
-		// For simplicity, I'm incrementing/decrementing the index on button clicks
-		// You may need to handle joystick input events to adjust the index
-
 		index = (index + 1) % options.Count; // Cycle to the next option
 
 		// Set the new index
@@ -147,12 +142,7 @@
 
 	private void DeCycleOption(List<string> options, int index, string type)
 	{
-		// Cycle through options using joystick input
-		// You may need to adjust this logic based on your input handling
-		// For simplicity, I'm incrementing/decrementing the index on button clicks
-		// You may need to handle joystick input events to adjust the index
-
-		index = (index - 1) % options.Count; // Cycle to the next option
+		index = (index - 1) % options.Count; // Cycle to the previous option
 
 		// Set the new index
 		if (type == "Movement")
