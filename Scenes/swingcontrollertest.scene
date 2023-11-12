@@ -1,0 +1,307 @@
+{
+  "GameObjects": [
+    {
+      "Id": "fddb41bc-94fd-4f9a-994f-3657c15750bd",
+      "Name": "Map",
+      "Enabled": true,
+      "Position": "0,0,0",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Components": [
+        {
+          "__type": "MapComponent",
+          "__enabled": true,
+          "MapName": "citizenfiction.smol_city_5"
+        }
+      ]
+    },
+    {
+      "Id": "88ee0d62-5822-4c01-b22b-12744226aca6",
+      "Name": "SkyBox",
+      "Enabled": true,
+      "Position": "0,0,0",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Components": [
+        {
+          "__type": "SkyBox2D",
+          "__enabled": true,
+          "SkyMaterial": "materials/skybox/light_test_sky_sunny.vmat",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "Id": "16bea1e9-0ad8-4040-9574-6d8c80d38f59",
+      "Name": "Directional Light",
+      "Enabled": true,
+      "Position": "0,0,0",
+      "Rotation": "-0.4003422,-0.3071933,0.5083043,-0.697843",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Components": [
+        {
+          "__type": "DirectionalLightComponent",
+          "__enabled": true,
+          "LightColor": "1,0.90436,0.79208,1",
+          "Shadows": false,
+          "SkyColor": "0.54056,0.71154,0.79703,1"
+        }
+      ]
+    },
+    {
+      "Id": "15aeff1d-1ba9-4198-9a91-927d2c940d01",
+      "Name": "VRPlayer",
+      "Enabled": true,
+      "Position": "-41.88697,-517.4954,90.63528",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Components": [
+        {
+          "__type": "AnchorComponent",
+          "__enabled": true,
+          "UpdateType": "All"
+        },
+        {
+          "__type": "VRLegs",
+          "__enabled": true,
+          "FootBuffer": 5,
+          "Head": "924895a6-0e31-429a-9672-dbcc9566b4cc",
+          "HeightOffset": 0,
+          "LedgeHopPower": 72,
+          "MaxStandableAngle": 35
+        },
+        {
+          "__type": "VRPlayerMovement",
+          "__enabled": true,
+          "Head": "924895a6-0e31-429a-9672-dbcc9566b4cc",
+          "JoystickMovementSpeed": 4,
+          "JumpForce": 400,
+          "JumpForwardMult": 0.5,
+          "JumpUpMult": 1,
+          "LeftHand": "f23078f7-d65f-4286-ae6f-b8adb2bac5c7",
+          "movementDirection": "Head",
+          "movementMethod": "ArmSwinger",
+          "OptionsMenu": "fffcdf66-af1b-49d7-a283-97f5d423db9a",
+          "RightHand": "3abe8112-783a-48eb-b93f-6edd50a97cc0",
+          "rotationMethod": "Snap",
+          "SmoothRotateSpeed": 60,
+          "SnapRotateIncrements": 30
+        },
+        {
+          "__type": "PhysicsComponent",
+          "__enabled": true,
+          "Gravity": true,
+          "Static": false
+        }
+      ],
+      "Children": [
+        {
+          "Id": "924895a6-0e31-429a-9672-dbcc9566b4cc",
+          "Name": "Head",
+          "Enabled": true,
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "player",
+          "Components": [
+            {
+              "__type": "CameraComponent",
+              "__enabled": true,
+              "BackgroundColor": "0.33333,0.46275,0.52157,1",
+              "ClearFlags": "Color, Depth, Stencil",
+              "FieldOfView": 90,
+              "Orthographic": false,
+              "OrthographicHeight": 1204,
+              "TargetEye": "Both",
+              "ZFar": 6000,
+              "ZNear": 1
+            },
+            {
+              "__type": "TrackedPoseComponent",
+              "__enabled": true,
+              "PoseSource": "Head",
+              "TrackingType": "All",
+              "UpdateType": "All",
+              "UseRelativeTransform": true
+            }
+          ]
+        },
+        {
+          "Id": "f23078f7-d65f-4286-ae6f-b8adb2bac5c7",
+          "Name": "Left Hand",
+          "Enabled": true,
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,0",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Components": [
+            {
+              "__type": "TrackedPoseComponent",
+              "__enabled": true,
+              "PoseSource": "LeftHand",
+              "TrackingType": "All",
+              "UpdateType": "All",
+              "UseRelativeTransform": true
+            },
+            {
+              "__type": "WebSwinging",
+              "__enabled": true,
+              "HandSide": "LeftHand",
+              "webForce": 25
+            }
+          ],
+          "Children": [
+            {
+              "Id": "008e8682-068b-44db-a3fb-5cc805ad5296",
+              "Name": "Left Hand Model",
+              "Enabled": true,
+              "Position": "0,0,0",
+              "Rotation": "0,0,0,1",
+              "Scale": "0.8,0.8,0.8",
+              "Tags": "",
+              "Components": [
+                {
+                  "__type": "AnimatedModelComponent",
+                  "__enabled": true,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateBoneObjects": false,
+                  "MaterialGroup": null,
+                  "MaterialOverride": null,
+                  "Model": "models/hands_discgolf/hand_toon_left.vmdl",
+                  "ShouldCastShadows": true,
+                  "Tint": "1,1,1,1"
+                },
+                {
+                  "__type": "AnimateVRHand",
+                  "__enabled": true,
+                  "HandSide": "LeftHand"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Id": "3abe8112-783a-48eb-b93f-6edd50a97cc0",
+          "Name": "Right Hand",
+          "Enabled": true,
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,0",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Components": [
+            {
+              "__type": "TrackedPoseComponent",
+              "__enabled": true,
+              "PoseSource": "RightHand",
+              "TrackingType": "All",
+              "UpdateType": "All",
+              "UseRelativeTransform": true
+            },
+            {
+              "__type": "WebSwinging",
+              "__enabled": true,
+              "HandSide": "RightHand",
+              "webForce": 25
+            }
+          ],
+          "Children": [
+            {
+              "Id": "c32dc290-6d73-4140-a03d-b6eaf9658a7c",
+              "Name": "Right Hand Model",
+              "Enabled": true,
+              "Position": "0,0,0",
+              "Rotation": "0,0,0,1",
+              "Scale": "0.8,0.8,0.8",
+              "Tags": "",
+              "Components": [
+                {
+                  "__type": "AnimatedModelComponent",
+                  "__enabled": true,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateBoneObjects": false,
+                  "MaterialGroup": null,
+                  "MaterialOverride": null,
+                  "Model": "models/hands_discgolf/hand_toon_right.vmdl",
+                  "ShouldCastShadows": true,
+                  "Tint": "1,1,1,1"
+                },
+                {
+                  "__type": "AnimateVRHand",
+                  "__enabled": true,
+                  "HandSide": "RightHand"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Id": "fffcdf66-af1b-49d7-a283-97f5d423db9a",
+          "Name": "Object",
+          "Enabled": true,
+          "Position": "0,0,0",
+          "Rotation": "-0.000000002346994,-0.00000003950341,0.707107,0.7071065",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Components": [
+            {
+              "__type": "WorldPanel",
+              "__enabled": true,
+              "HorizontalAlign": "Center",
+              "LookAtCamera": false,
+              "PanelSize": "775.5,512",
+              "RenderScale": 1,
+              "VerticalAlign": "Center"
+            }
+          ],
+          "Children": [
+            {
+              "Id": "1972b5dd-af60-40d8-90e9-cd67ec090707",
+              "Name": "Object",
+              "Enabled": true,
+              "Position": "0,0,0",
+              "Rotation": "0,0,1,-0.0000006397578",
+              "Scale": "1,1,1",
+              "Tags": "",
+              "Components": [
+                {
+                  "__type": "SettingsUI",
+                  "__enabled": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "73ea31d4-d9e1-48ac-bcb1-a00c04c407ba",
+      "Name": "Object",
+      "Enabled": true,
+      "Position": "0,0,0",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Components": [
+        {
+          "__type": "EnvmapComponent",
+          "__enabled": true,
+          "Bounds": {
+            "Mins": "-512,-512,-512",
+            "Maxs": "512,512,512"
+          },
+          "Projection": "Box",
+          "Texture": "textures/cubemaps/default2.vtex",
+          "TintColor": "1,1,1,1"
+        }
+      ]
+    }
+  ],
+  "__references": [
+    "shadb.hand_toon_left",
+    "shadb.hand_toon_right"
+  ]
+}
