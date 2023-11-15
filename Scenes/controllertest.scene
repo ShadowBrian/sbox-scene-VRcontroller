@@ -82,7 +82,62 @@
           "TintColor": "1,1,1,1"
         }
       ]
+    },
+    {
+      "Id": "d2d53ed9-8feb-4a7d-ade2-8735f083edb9",
+      "Name": "VRAvatar",
+      "Enabled": true,
+      "Position": "0,0,0",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Components": [
+        {
+          "__type": "VRAvatarDriver",
+          "__enabled": true,
+          "SourcePlayer": "15aeff1d-1ba9-4198-9a91-927d2c940d01"
+        }
+      ],
+      "Children": [
+        {
+          "Id": "f879c535-6ce1-4237-88fe-28c64ed69814",
+          "Name": "model",
+          "Enabled": true,
+          "Position": "0,0,0.00001065652",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Components": [
+            {
+              "__type": "AnimatedModelComponent",
+              "__enabled": true,
+              "BodyGroups": 18446744073709551614,
+              "CreateBoneObjects": false,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Model": "models/citizen/citizen.vmdl",
+              "ShouldCastShadows": true,
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "CitizenAnimation",
+              "__enabled": true,
+              "Height": 1,
+              "Target": "f879c535-6ce1-4237-88fe-28c64ed69814"
+            }
+          ]
+        }
+      ]
     }
   ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "TimeScale": 1,
+    "ThreadedAnimation": true,
+    "UseFixedUpdate": true
+  },
+  "Title": "controllertest",
+  "Description": "",
   "__references": []
 }
