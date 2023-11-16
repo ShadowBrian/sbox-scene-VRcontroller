@@ -42,8 +42,7 @@
       {
         "__type": "PhysicsComponent",
         "__enabled": true,
-        "Gravity": true,
-        "Static": false
+        "Gravity": true
       }
     ],
     "Children": [
@@ -60,7 +59,7 @@
             "__type": "CameraComponent",
             "__enabled": true,
             "BackgroundColor": "0.33333,0.46275,0.52157,1",
-            "ClearFlags": "Color, Depth, Stencil",
+            "ClearFlags": "All",
             "FieldOfView": 90,
             "Orthographic": false,
             "OrthographicHeight": 1204,
@@ -73,8 +72,7 @@
             "__enabled": true,
             "PoseSource": "Head",
             "TrackingType": "All",
-            "UpdateType": "All",
-            "UseRelativeTransform": true
+            "UpdateType": "All"
           }
         ]
       },
@@ -92,8 +90,13 @@
             "__enabled": true,
             "PoseSource": "LeftHand",
             "TrackingType": "All",
-            "UpdateType": "All",
-            "UseRelativeTransform": true
+            "UpdateType": "All"
+          },
+          {
+            "__type": "VRHandGrabController",
+            "__enabled": true,
+            "HandOffset": "0efced05-5aa7-4d07-9019-fbb2cb882926",
+            "HandSide": "LeftHand"
           }
         ],
         "Children": [
@@ -118,11 +121,20 @@
                 "Tint": "1,1,1,1"
               },
               {
-                "__type": "AnimateVRHand",
+                "__type": "VRHandAnimationController",
                 "__enabled": true,
                 "HandSide": "LeftHand"
               }
             ]
+          },
+          {
+            "Id": "0efced05-5aa7-4d07-9019-fbb2cb882926",
+            "Name": "grabpos",
+            "Enabled": true,
+            "Position": "-5,-2,0",
+            "Rotation": "0,0,0,1",
+            "Scale": "1,1,1",
+            "Tags": ""
           }
         ]
       },
@@ -140,8 +152,13 @@
             "__enabled": true,
             "PoseSource": "RightHand",
             "TrackingType": "All",
-            "UpdateType": "All",
-            "UseRelativeTransform": true
+            "UpdateType": "All"
+          },
+          {
+            "__type": "VRHandGrabController",
+            "__enabled": true,
+            "HandOffset": "8ed6d307-534f-4020-bbd5-ca8086bce442",
+            "HandSide": "RightHand"
           }
         ],
         "Children": [
@@ -166,11 +183,20 @@
                 "Tint": "1,1,1,1"
               },
               {
-                "__type": "AnimateVRHand",
+                "__type": "VRHandAnimationController",
                 "__enabled": true,
                 "HandSide": "RightHand"
               }
             ]
+          },
+          {
+            "Id": "8ed6d307-534f-4020-bbd5-ca8086bce442",
+            "Name": "grabpos",
+            "Enabled": true,
+            "Position": "-5,2,0",
+            "Rotation": "0,0,0,1",
+            "Scale": "1,1,1",
+            "Tags": ""
           }
         ]
       },

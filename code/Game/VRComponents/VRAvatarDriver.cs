@@ -4,6 +4,8 @@ public sealed class VRAvatarDriver : BaseComponent
 {
 	[Property] public GameObject SourcePlayer { get; set; }
 
+	[Property] public bool IsLocal { get; set; }
+
 	CitizenAnimation anim { get; set; }
 	AnimatedModelComponent animModel { get; set; }
 
@@ -20,8 +22,8 @@ public sealed class VRAvatarDriver : BaseComponent
 	{
 		Head = SourcePlayer.Children.Where( C => C.Name == "Head" ).First();
 
-		LeftHand = SourcePlayer.GetComponents<AnimateVRHand>( false, true ).Where( C => C.GameObject.Name == "Left Hand Model" ).First().GameObject;
-		RightHand = SourcePlayer.GetComponents<AnimateVRHand>( false, true ).Where( C => C.GameObject.Name == "Right Hand Model" ).First().GameObject;
+		LeftHand = SourcePlayer.GetComponents<VRHandAnimationController>( false, true ).Where( C => C.GameObject.Name == "Left Hand Model" ).First().GameObject;
+		RightHand = SourcePlayer.GetComponents<VRHandAnimationController>( false, true ).Where( C => C.GameObject.Name == "Right Hand Model" ).First().GameObject;
 
 		anim = GetComponent<CitizenAnimation>( false, true );
 
@@ -68,8 +70,11 @@ public sealed class VRAvatarDriver : BaseComponent
 		float LocalEyeHeight = heighttr.Distance / 64f;
 
 		animModel.Set( "duck", (ScaleOffset - LocalEyeHeight) * 3f );
-
-		animModel.SceneObject.SetBodyGroup( "Hands", 1 );
+		if ( IsLocal )
+		{
+			animModel.SceneObject.SetBodyGroup( "Hands", 1 );
+			animModel.SceneObject.SetBodyGroup( "Head", 1 );
+		}
 
 		Transform.Position = Head.Transform.Position.WithZ( heighttr.EndPosition.z ) - Head.Transform.Rotation.Forward.WithZ( 0 ) * animModel.GetFloat( "duck" ) * 20f;
 		Transform.Rotation = Rotation.LookAt( Head.Transform.Rotation.Forward.WithZ( 0 ) );

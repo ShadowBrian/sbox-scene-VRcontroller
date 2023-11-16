@@ -95,6 +95,7 @@
         {
           "__type": "VRAvatarDriver",
           "__enabled": true,
+          "IsLocal": true,
           "SourcePlayer": "15aeff1d-1ba9-4198-9a91-927d2c940d01"
         }
       ],
@@ -103,7 +104,7 @@
           "Id": "f879c535-6ce1-4237-88fe-28c64ed69814",
           "Name": "model",
           "Enabled": true,
-          "Position": "0,0,0.00001065652",
+          "Position": "0,0,0",
           "Rotation": "0,0,0,1",
           "Scale": "1,1,1",
           "Tags": "",
@@ -111,7 +112,7 @@
             {
               "__type": "AnimatedModelComponent",
               "__enabled": true,
-              "BodyGroups": 18446744073709551614,
+              "BodyGroups": 18446744073709551615,
               "CreateBoneObjects": false,
               "MaterialGroup": null,
               "MaterialOverride": null,
@@ -126,6 +127,80 @@
               "Target": "f879c535-6ce1-4237-88fe-28c64ed69814"
             }
           ]
+        }
+      ]
+    },
+    {
+      "Id": "cf000cc4-24f7-410d-a0bd-6c4a9cbe3274",
+      "Name": "Sphere",
+      "Enabled": true,
+      "Position": "448.3884,-234.2503,55.80281",
+      "Rotation": "0,0,0,1",
+      "Scale": "0.1640355,0.1640355,0.1640355",
+      "Tags": "grabbable",
+      "Components": [
+        {
+          "__type": "ModelComponent",
+          "__enabled": true,
+          "BodyGroups": 18446744073709551615,
+          "MaterialOverride": null,
+          "Model": "models/dev/sphere.vmdl",
+          "ShouldCastShadows": true,
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "ColliderSphereComponent",
+          "__enabled": true,
+          "IsTrigger": false,
+          "Radius": 32,
+          "Static": false,
+          "Surface": null
+        },
+        {
+          "__type": "PhysicsComponent",
+          "__enabled": true,
+          "Gravity": true
+        },
+        {
+          "__type": "VRGrabbableObject",
+          "__enabled": true
+        }
+      ]
+    },
+    {
+      "Id": "05f57e11-bdd9-41f3-be10-fd51d29292d9",
+      "Name": "Sphere (1)",
+      "Enabled": true,
+      "Position": "448.3884,-216.7357,55.80281",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "grabbable",
+      "Components": [
+        {
+          "__type": "ModelComponent",
+          "__enabled": true,
+          "BodyGroups": 18446744073709551615,
+          "MaterialOverride": null,
+          "Model": "weapons/rust_pistol/rust_pistol.vmdl",
+          "ShouldCastShadows": true,
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "PhysicsComponent",
+          "__enabled": true,
+          "Gravity": true
+        },
+        {
+          "__type": "VRGrabbableObject",
+          "__enabled": true
+        },
+        {
+          "__type": "ModelCollider",
+          "__enabled": true,
+          "IsTrigger": false,
+          "Model": "weapons/rust_pistol/rust_pistol.vmdl",
+          "Static": false,
+          "Surface": null
         }
       ]
     }
