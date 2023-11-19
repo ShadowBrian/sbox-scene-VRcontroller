@@ -173,7 +173,7 @@
       "Enabled": true,
       "Position": "448.3884,-216.7357,55.80281",
       "Rotation": "0,0,0,1",
-      "Scale": "1,1,1",
+      "Scale": "0.8,0.8,0.8",
       "Tags": "grabbable",
       "Components": [
         {
@@ -209,19 +209,30 @@
           "Id": "41cac0e6-5e4d-4e98-bc10-ceaca8fd0fa2",
           "Name": "handpose",
           "Enabled": true,
-          "Position": "2.147635,-0.0000000132977,2.34836",
-          "Rotation": "0.00000008562586,-0.4830554,0.00000004723905,0.8755898",
-          "Scale": "0.8,0.8,0.8",
+          "Position": "2.017333,-0.00000005897027,2.718986",
+          "Rotation": "0.00000008297054,-0.4597669,0.00000004872327,0.8880388",
+          "Scale": "1,1,1",
           "Tags": "",
           "Components": [
             {
-              "__type": "ModelComponent",
+              "__type": "AnimatedModelComponent",
               "__enabled": true,
               "BodyGroups": 18446744073709551615,
+              "CreateBoneObjects": false,
+              "MaterialGroup": null,
               "MaterialOverride": null,
               "Model": "models/hands_discgolf/hand_toon_right.vmdl",
               "ShouldCastShadows": true,
               "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "VRHandPoseController",
+              "__enabled": true,
+              "IndexClamp": 0.5,
+              "MiddleClamp": 0.9,
+              "PinkyClamp": 0.9,
+              "RingClamp": 0.9,
+              "ThumbClamp": 0.9
             }
           ]
         }

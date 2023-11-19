@@ -5,13 +5,24 @@ public sealed class VRGrabbableObject : BaseComponent
 {
 	[Property] public GameObject HandposeObject { get; set; }
 
+	//0=Thumb, 1=Index, 2=Middle, 3=Ring, 4=Pinky
+
 	public float[] curlClamps = new float[5] { 0.5f, 0.5f, 0.5f, 0.5f, 0.5f };
 
 	public override void OnAwake()
 	{
 		if ( HandposeObject.IsValid() )
 		{
-			HandposeObject.GetComponent<ModelComponent>().Enabled = false;
+			HandposeObject.GetComponent<AnimatedModelComponent>().Enabled = false;
+			var handpose = HandposeObject.GetComponent<VRHandPoseController>( false );
+			if ( handpose != null )
+			{
+				curlClamps[0] = handpose.ThumbClamp;
+				curlClamps[1] = handpose.IndexClamp;
+				curlClamps[2] = handpose.MiddleClamp;
+				curlClamps[3] = handpose.RingClamp;
+				curlClamps[4] = handpose.PinkyClamp;
+			}
 		}
 	}
 
