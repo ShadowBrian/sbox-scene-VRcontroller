@@ -103,13 +103,21 @@ public sealed class VRHandGrabController : BaseComponent
 
 				var grabobj = HoldingObject.GetComponent<VRGrabbableObject>( false, true );
 
+				GameObject referenceObject = HandOffset;
+
 				if ( grabobj != null )
 				{
 					anim.SetCurlClamps( grabobj.curlClamps );
+					if ( grabobj.HandposeObject.IsValid() )
+					{
+						referenceObject = grabobj.HandposeObject;
+					}
 				}
 
-				HoldingObject.Transform.Position = anim.Transform.World.Position + (HandOffset.Transform.LocalPosition * Transform.World.Rotation);
-				HoldingObject.Transform.Rotation = anim.Transform.World.Rotation * Rotation.FromPitch( 35f );// * (HandOffset.Transform.LocalRotation.Inverse * Transform.World.Rotation);
+				Vector3 deltapos = grabobj.Transform.Position - referenceObject.Transform.Position;
+
+				HoldingObject.Transform.Position = anim.Transform.World.Position + deltapos;// ( referenceObject.Transform.LocalPosition * Transform.World.Rotation);
+				HoldingObject.Transform.Rotation = anim.Transform.World.Rotation * referenceObject.Transform.LocalRotation.Inverse;// * (HandOffset.Transform.LocalRotation.Inverse * Transform.World.Rotation);
 			}
 		}
 	}

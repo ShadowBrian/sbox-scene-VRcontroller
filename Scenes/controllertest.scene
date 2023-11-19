@@ -169,7 +169,7 @@
     },
     {
       "Id": "05f57e11-bdd9-41f3-be10-fd51d29292d9",
-      "Name": "Sphere (1)",
+      "Name": "gun",
       "Enabled": true,
       "Position": "448.3884,-216.7357,55.80281",
       "Rotation": "0,0,0,1",
@@ -192,7 +192,8 @@
         },
         {
           "__type": "VRGrabbableObject",
-          "__enabled": true
+          "__enabled": true,
+          "HandposeObject": "41cac0e6-5e4d-4e98-bc10-ceaca8fd0fa2"
         },
         {
           "__type": "ModelCollider",
@@ -201,6 +202,28 @@
           "Model": "weapons/rust_pistol/rust_pistol.vmdl",
           "Static": false,
           "Surface": null
+        }
+      ],
+      "Children": [
+        {
+          "Id": "41cac0e6-5e4d-4e98-bc10-ceaca8fd0fa2",
+          "Name": "handpose",
+          "Enabled": true,
+          "Position": "2.147635,-0.0000000132977,2.34836",
+          "Rotation": "0.00000008562586,-0.4830554,0.00000004723905,0.8755898",
+          "Scale": "0.8,0.8,0.8",
+          "Tags": "",
+          "Components": [
+            {
+              "__type": "ModelComponent",
+              "__enabled": true,
+              "BodyGroups": 18446744073709551615,
+              "MaterialOverride": null,
+              "Model": "models/hands_discgolf/hand_toon_right.vmdl",
+              "ShouldCastShadows": true,
+              "Tint": "1,1,1,1"
+            }
+          ]
         }
       ]
     }
@@ -214,5 +237,7 @@
   },
   "Title": "controllertest",
   "Description": "",
-  "__references": []
+  "__references": [
+    "shadb.hand_toon_right"
+  ]
 }
