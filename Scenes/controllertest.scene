@@ -70,6 +70,30 @@
       "Id": "d2d53ed9-8feb-4a7d-ade2-8735f083edb9",
       "Name": "VRAvatar",
       "Enabled": true,
+      "Components": [
+        {
+          "__type": "VRAvatarDriver",
+          "__enabled": true,
+          "IsLocal": true,
+          "SourcePlayer": "15aeff1d-1ba9-4198-9a91-927d2c940d01"
+        },
+        {
+          "__type": "CitizenAnimationHelper",
+          "__enabled": true,
+          "BodyWeight": 1,
+          "EyeSource": null,
+          "EyesWeight": 1,
+          "HeadWeight": 1,
+          "Height": 1,
+          "IkLeftFoot": null,
+          "IkLeftHand": null,
+          "IkRightFoot": null,
+          "IkRightHand": null,
+          "LookAt": null,
+          "LookAtEnabled": false,
+          "Target": "f879c535-6ce1-4237-88fe-28c64ed69814"
+        }
+      ],
       "Children": [
         {
           "Id": "f879c535-6ce1-4237-88fe-28c64ed69814",

@@ -27,7 +27,7 @@ public sealed class VRAvatarDriver : Component
 
 		anim = Components.Get<CitizenAnimation>( FindMode.EverythingInSelfAndChildren );
 
-		animModel = anim.Components.Get<SkinnedModelRenderer>();
+		animModel = anim.Target.Components.Get<SkinnedModelRenderer>();
 
 		if ( Head.IsValid() && LeftHand.IsValid() && RightHand.IsValid() )
 		{
