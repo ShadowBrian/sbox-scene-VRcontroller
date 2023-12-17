@@ -64,6 +64,7 @@
           "r": "Collide"
         }
       ]
-    }
+    },
+    "StartupScene": "scenes/controllertest.scene"
   }
 }

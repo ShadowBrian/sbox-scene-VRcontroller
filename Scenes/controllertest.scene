@@ -4,26 +4,19 @@
       "Id": "fddb41bc-94fd-4f9a-994f-3657c15750bd",
       "Name": "Map",
       "Enabled": true,
-      "Position": "0,0,0",
-      "Rotation": "0,0,0,1",
-      "Scale": "1,1,1",
-      "Tags": "",
       "Components": [
         {
-          "__type": "MapComponent",
+          "__type": "MapInstance",
           "__enabled": true,
           "MapName": "hadyn.player_controller_test_course_v1"
         }
-      ]
+      ],
+      "Children": []
     },
     {
       "Id": "88ee0d62-5822-4c01-b22b-12744226aca6",
       "Name": "SkyBox",
       "Enabled": true,
-      "Position": "0,0,0",
-      "Rotation": "0,0,0,1",
-      "Scale": "1,1,1",
-      "Tags": "",
       "Components": [
         {
           "__type": "SkyBox2D",
@@ -36,14 +29,11 @@
     {
       "Id": "16bea1e9-0ad8-4040-9574-6d8c80d38f59",
       "Name": "Directional Light",
-      "Enabled": true,
-      "Position": "0,0,0",
       "Rotation": "-0.4003422,-0.3071933,0.5083043,-0.697843",
-      "Scale": "1,1,1",
-      "Tags": "",
+      "Enabled": true,
       "Components": [
         {
-          "__type": "DirectionalLightComponent",
+          "__type": "DirectionalLight",
           "__enabled": true,
           "LightColor": "1,0.90436,0.79208,1",
           "Shadows": false,
@@ -54,24 +44,17 @@
     {
       "Id": "15aeff1d-1ba9-4198-9a91-927d2c940d01",
       "Name": "VRPlayer",
-      "Enabled": true,
       "Position": "335.4092,-252.6599,97.25797",
-      "Rotation": "0,0,0,1",
-      "Scale": "1,1,1",
-      "Tags": "",
-      "__Prefab": "prefabs/vrplayer.object"
+      "Enabled": true,
+      "__Prefab": "prefabs/vrplayer.prefab"
     },
     {
       "Id": "73ea31d4-d9e1-48ac-bcb1-a00c04c407ba",
       "Name": "Object",
       "Enabled": true,
-      "Position": "0,0,0",
-      "Rotation": "0,0,0,1",
-      "Scale": "1,1,1",
-      "Tags": "",
       "Components": [
         {
-          "__type": "EnvmapComponent",
+          "__type": "EnvmapProbe",
           "__enabled": true,
           "Bounds": {
             "Mins": "-512,-512,-512",
@@ -87,44 +70,23 @@
       "Id": "d2d53ed9-8feb-4a7d-ade2-8735f083edb9",
       "Name": "VRAvatar",
       "Enabled": true,
-      "Position": "0,0,0",
-      "Rotation": "0,0,0,1",
-      "Scale": "1,1,1",
-      "Tags": "",
-      "Components": [
-        {
-          "__type": "VRAvatarDriver",
-          "__enabled": true,
-          "IsLocal": true,
-          "SourcePlayer": "15aeff1d-1ba9-4198-9a91-927d2c940d01"
-        }
-      ],
       "Children": [
         {
           "Id": "f879c535-6ce1-4237-88fe-28c64ed69814",
           "Name": "model",
           "Enabled": true,
-          "Position": "0,0,0",
-          "Rotation": "0,0,0,1",
-          "Scale": "1,1,1",
-          "Tags": "",
           "Components": [
             {
-              "__type": "AnimatedModelComponent",
+              "__type": "SkinnedModelRenderer",
               "__enabled": true,
               "BodyGroups": 18446744073709551615,
+              "BoneMergeTarget": null,
               "CreateBoneObjects": false,
               "MaterialGroup": null,
               "MaterialOverride": null,
               "Model": "models/citizen/citizen.vmdl",
               "ShouldCastShadows": true,
               "Tint": "1,1,1,1"
-            },
-            {
-              "__type": "CitizenAnimation",
-              "__enabled": true,
-              "Height": 1,
-              "Target": "f879c535-6ce1-4237-88fe-28c64ed69814"
             }
           ]
         }
@@ -133,91 +95,97 @@
     {
       "Id": "cf000cc4-24f7-410d-a0bd-6c4a9cbe3274",
       "Name": "Sphere",
-      "Enabled": true,
       "Position": "448.3884,-234.2503,55.80281",
-      "Rotation": "0,0,0,1",
       "Scale": "0.1640355,0.1640355,0.1640355",
       "Tags": "grabbable",
+      "Enabled": true,
       "Components": [
         {
-          "__type": "ModelComponent",
+          "__type": "ModelRenderer",
           "__enabled": true,
           "BodyGroups": 18446744073709551615,
+          "MaterialGroup": null,
           "MaterialOverride": null,
           "Model": "models/dev/sphere.vmdl",
           "ShouldCastShadows": true,
           "Tint": "1,1,1,1"
         },
         {
-          "__type": "ColliderSphereComponent",
+          "__type": "SphereCollider",
           "__enabled": true,
+          "Center": "0,0,0",
           "IsTrigger": false,
           "Radius": 32,
           "Static": false,
           "Surface": null
         },
         {
-          "__type": "PhysicsComponent",
+          "__type": "Rigidbody",
           "__enabled": true,
-          "Gravity": true
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0
         },
         {
           "__type": "VRGrabbableObject",
-          "__enabled": true
+          "__enabled": true,
+          "HandposeObject": null
         }
       ]
     },
     {
       "Id": "05f57e11-bdd9-41f3-be10-fd51d29292d9",
       "Name": "gun",
-      "Enabled": true,
-      "Position": "448.3884,-216.7357,55.80281",
-      "Rotation": "0,0,0,1",
-      "Scale": "0.8,0.8,0.8",
+      "Position": "455.5675,-216.7357,49.92271",
+      "Rotation": "0,0,1,-0.0000006397578",
       "Tags": "grabbable",
+      "Enabled": true,
       "Components": [
         {
-          "__type": "ModelComponent",
+          "__type": "ModelRenderer",
           "__enabled": true,
           "BodyGroups": 18446744073709551615,
+          "MaterialGroup": null,
           "MaterialOverride": null,
-          "Model": "weapons/rust_pistol/rust_pistol.vmdl",
+          "Model": "models/weapons/w_pistol.vmdl",
           "ShouldCastShadows": true,
           "Tint": "1,1,1,1"
         },
         {
-          "__type": "PhysicsComponent",
+          "__type": "Rigidbody",
           "__enabled": true,
-          "Gravity": true
-        },
-        {
-          "__type": "VRGrabbableObject",
-          "__enabled": true,
-          "HandposeObject": "41cac0e6-5e4d-4e98-bc10-ceaca8fd0fa2"
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0
         },
         {
           "__type": "ModelCollider",
           "__enabled": true,
           "IsTrigger": false,
-          "Model": "weapons/rust_pistol/rust_pistol.vmdl",
+          "Model": "models/weapons/w_pistol.vmdl",
           "Static": false,
           "Surface": null
+        },
+        {
+          "__type": "VRGrabbableObject",
+          "__enabled": true,
+          "HandposeObject": "41cac0e6-5e4d-4e98-bc10-ceaca8fd0fa2"
         }
       ],
       "Children": [
         {
           "Id": "41cac0e6-5e4d-4e98-bc10-ceaca8fd0fa2",
           "Name": "handpose",
+          "Position": "-1.152174,0.000001472313,4.486036",
+          "Rotation": "-0.4633844,0.03121732,-0.8836037,-0.05952681",
+          "Tags": "grabbable",
           "Enabled": true,
-          "Position": "2.017333,-0.00000005897027,2.718986",
-          "Rotation": "0.00000008297054,-0.4597669,0.00000004872327,0.8880388",
-          "Scale": "1,1,1",
-          "Tags": "",
           "Components": [
             {
-              "__type": "AnimatedModelComponent",
+              "__type": "SkinnedModelRenderer",
               "__enabled": true,
               "BodyGroups": 18446744073709551615,
+              "BoneMergeTarget": null,
               "CreateBoneObjects": false,
               "MaterialGroup": null,
               "MaterialOverride": null,
@@ -229,10 +197,10 @@
               "__type": "VRHandPoseController",
               "__enabled": true,
               "IndexClamp": 0.5,
-              "MiddleClamp": 0.9,
-              "PinkyClamp": 0.9,
-              "RingClamp": 0.9,
-              "ThumbClamp": 0.9
+              "MiddleClamp": 1,
+              "PinkyClamp": 1,
+              "RingClamp": 1,
+              "ThumbClamp": 1
             }
           ]
         }
@@ -241,14 +209,17 @@
   ],
   "SceneProperties": {
     "FixedUpdateFrequency": 50,
+    "Lerping": true,
     "MaxFixedUpdates": 5,
-    "TimeScale": 1,
+    "NetworkFrequency": 30,
     "ThreadedAnimation": true,
+    "TimeScale": 1,
     "UseFixedUpdate": true
   },
   "Title": "controllertest",
   "Description": "",
   "__references": [
+    "gok.w_pistol",
     "shadb.hand_toon_right"
   ]
 }

@@ -1,6 +1,6 @@
 using Sandbox;
 
-public sealed class VRHandPoseController : BaseComponent, BaseComponent.ExecuteInEditor
+public sealed class VRHandPoseController : Component
 {
 	//0=Thumb, 1=Index, 2=Middle, 3=Ring, 4=Pinky
 	[Property] public float ThumbClamp { get; set; } = 1f;
@@ -9,13 +9,13 @@ public sealed class VRHandPoseController : BaseComponent, BaseComponent.ExecuteI
 	[Property] public float RingClamp { get; set; } = 1f;
 	[Property] public float PinkyClamp { get; set; } = 1f;
 
-	AnimatedModelComponent model;
+	SkinnedModelRenderer model;
 
-	public override void Update()
+	protected override void OnUpdate()
 	{
 		if ( model == null )
 		{
-			model = GetComponent<AnimatedModelComponent>( false );
+			model = Components.Get<SkinnedModelRenderer>();
 			if ( model == null )
 			{
 				return;
@@ -27,15 +27,12 @@ public sealed class VRHandPoseController : BaseComponent, BaseComponent.ExecuteI
 			return;
 		}
 
-		model.SceneObject.Update( 0.1f );
+		model.SceneModel.Update( 0.1f );
 
-		model.Set( "thumb", ThumbClamp );
-		model.Set( "index", IndexClamp );
-		model.Set( "middle", MiddleClamp );
-		model.Set( "ring", RingClamp );
-		model.Set( "pinky", PinkyClamp );
-
-
-
+		model.SceneModel.SetAnimParameter( "thumb", ThumbClamp );
+		model.SceneModel.SetAnimParameter( "index", IndexClamp );
+		model.SceneModel.SetAnimParameter( "middle", MiddleClamp );
+		model.SceneModel.SetAnimParameter( "ring", RingClamp );
+		model.SceneModel.SetAnimParameter( "pinky", PinkyClamp );
 	}
 }

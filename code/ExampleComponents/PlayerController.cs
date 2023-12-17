@@ -2,11 +2,11 @@ using Sandbox;
 using System.Drawing;
 
 
-public class PlayerController : BaseComponent
+public class PlayerController : Component
 {
 	[Property] public Vector3 Gravity { get; set; } = new Vector3( 0, 0, 800 );
 
-	[Range( 0, 400)]
+	[Range( 0, 400 )]
 	[Property] public float CameraDistance { get; set; } = 200.0f;
 
 	public Vector3 WishVelocity { get; private set; }
@@ -18,7 +18,7 @@ public class PlayerController : BaseComponent
 
 	public Angles EyeAngles;
 
-	public override void Update()
+	protected override void OnUpdate()
 	{
 		// Eye input
 		EyeAngles.pitch += Input.MouseDelta.y * 0.1f;
@@ -26,7 +26,7 @@ public class PlayerController : BaseComponent
 		EyeAngles.roll = 0;
 
 		// Update camera position
-		var camera = GameObject.GetComponent<CameraComponent>( true, true );
+		var camera = GameObject.Components.Get<CameraComponent>( FindMode.EverythingInSelfAndChildren );
 		if ( camera is not null )
 		{
 			var camPos = Eye.Transform.Position - EyeAngles.ToRotation().Forward * CameraDistance;
@@ -37,7 +37,7 @@ public class PlayerController : BaseComponent
 			camera.Transform.Rotation = EyeAngles.ToRotation();
 		}
 
-		var cc = GameObject.GetComponent<CharacterController>();
+		var cc = GameObject.Components.Get<CharacterController>();
 		if ( cc is null ) return;
 
 		float rotateDifference = 0;
@@ -73,11 +73,11 @@ public class PlayerController : BaseComponent
 		}
 	}
 
-	public override void FixedUpdate()
+	protected override void OnFixedUpdate()
 	{
 		BuildWishVelocity();
 
-		var cc = GameObject.GetComponent<CharacterController>();
+		var cc = GameObject.Components.Get<CharacterController>();
 
 		if ( cc.IsOnGround && Input.Down( "Jump" ) )
 		{

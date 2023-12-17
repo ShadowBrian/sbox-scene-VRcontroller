@@ -47,7 +47,7 @@
 		return optionType == SelectedOptionType ? "selected" : string.Empty;
 	}
 
-	public override void OnStart()
+	protected override void OnStart()
 	{
 		LoadSettings();
 		GameObject.Parent.Enabled = false;
@@ -120,6 +120,11 @@
 	{
 		index = (index + 1) % options.Count; // Cycle to the next option
 
+		if(index >= options.Count)
+		{
+			index = 0;
+		}
+
 		// Set the new index
 		if (type == "Movement")
 		{
@@ -143,6 +148,11 @@
 	private void DeCycleOption(List<string> options, int index, string type)
 	{
 		index = (index - 1) % options.Count; // Cycle to the previous option
+
+		if(index < 0)
+		{
+			index = options.Count-1;
+		}
 
 		// Set the new index
 		if (type == "Movement")

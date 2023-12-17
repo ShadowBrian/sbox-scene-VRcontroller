@@ -1,7 +1,8 @@
 using Sandbox;
 using Sandbox.Engine;
+using Sandbox.VR;
 
-public sealed class VRGrabbableObject : BaseComponent
+public sealed class VRGrabbableObject : Component
 {
 	[Property] public GameObject HandposeObject { get; set; }
 
@@ -9,12 +10,12 @@ public sealed class VRGrabbableObject : BaseComponent
 
 	public float[] curlClamps = new float[5] { 0.5f, 0.5f, 0.5f, 0.5f, 0.5f };
 
-	public override void OnAwake()
+	protected override void OnAwake()
 	{
 		if ( HandposeObject.IsValid() )
 		{
-			HandposeObject.GetComponent<AnimatedModelComponent>().Enabled = false;
-			var handpose = HandposeObject.GetComponent<VRHandPoseController>( false );
+			HandposeObject.Components.Get<SkinnedModelRenderer>().Enabled = false;
+			var handpose = HandposeObject.Components.Get<VRHandPoseController>( false );
 			if ( handpose != null )
 			{
 				curlClamps[0] = handpose.ThumbClamp;
@@ -26,24 +27,20 @@ public sealed class VRGrabbableObject : BaseComponent
 		}
 	}
 
-	public Input.VrHand TranslateHandSide( TrackedPoseComponent.PoseSources HandSide )
+	public Sandbox.VR.VRController TranslateHandSide( VRHand.HandSources HandSide )
 	{
 		switch ( HandSide )
 		{
-			case TrackedPoseComponent.PoseSources.None:
-				return Input.VR.RightHand;
-			case TrackedPoseComponent.PoseSources.Head:
-				return Input.VR.RightHand;
-			case TrackedPoseComponent.PoseSources.LeftHand:
+			case VRHand.HandSources.Left:
 				return Input.VR.LeftHand;
-			case TrackedPoseComponent.PoseSources.RightHand:
+			case VRHand.HandSources.Right:
 				return Input.VR.RightHand;
 			default:
 				return Input.VR.RightHand;
 		}
 	}
 
-	public override void Update()
+	protected override void OnUpdate()
 	{
 
 	}

@@ -25,7 +25,7 @@ public class VRSettings
 
 
 
-public sealed class VRPlayerMovement : BaseComponent
+public sealed class VRPlayerMovement : Component
 {
 	public static VRPlayerMovement instance;
 
@@ -77,7 +77,7 @@ public sealed class VRPlayerMovement : BaseComponent
 
 	[Property] GameObject OptionsMenu { get; set; }
 
-	public override void OnStart()
+	protected override void OnStart()
 	{
 		instance = this;
 
@@ -94,7 +94,7 @@ public sealed class VRPlayerMovement : BaseComponent
 
 	bool JustOpened;
 
-	public override void FixedUpdate()
+	protected override void OnFixedUpdate()
 	{
 		if ( !Input.VR.LeftHand.ButtonB.IsPressed && JustOpened )
 		{
@@ -123,24 +123,32 @@ public sealed class VRPlayerMovement : BaseComponent
 			if ( Input.VR.LeftHand.Joystick.Value.y < -0.5f && !JustChanged )
 			{
 				SelectedOption = (SelectedOption + 1) % OptionSelections.Count();
+				if ( SelectedOption >= OptionSelections.Count() )
+				{
+					SelectedOption = 0;
+				}
 				JustChanged = true;
 			}
 
 			if ( Input.VR.LeftHand.Joystick.Value.y > 0.5f && !JustChanged )
 			{
 				SelectedOption = (SelectedOption - 1) % OptionSelections.Count();
+				if ( SelectedOption < 0 )
+				{
+					SelectedOption = OptionSelections.Count() - 1;
+				}
 				JustChanged = true;
 			}
 
 			if ( Input.VR.LeftHand.Joystick.Value.x > 0.5f && !JustChanged )
 			{
-				OptionsMenu.GetComponent<SettingsUI>( false, true ).NextOption();
+				OptionsMenu.Components.Get<SettingsUI>( FindMode.EverythingInSelfAndChildren ).NextOption();
 				JustChanged = true;
 			}
 
 			if ( Input.VR.LeftHand.Joystick.Value.x < -0.5f && !JustChanged )
 			{
-				OptionsMenu.GetComponent<SettingsUI>( false, true ).PrevOption();
+				OptionsMenu.Components.Get<SettingsUI>( FindMode.EverythingInSelfAndChildren ).PrevOption();
 				JustChanged = true;
 			}
 
@@ -333,9 +341,11 @@ public sealed class VRPlayerMovement : BaseComponent
 
 	Vector3 hitnormal;
 
-	public void DoTeleportMovement()
+	bool ShowTeleport = false;
+
+	protected override void OnUpdate()
 	{
-		if ( Input.VR.LeftHand.Joystick.Value.y > 0.5f )
+		if ( ShowTeleport )
 		{
 			if ( mesh != null )
 			{
@@ -346,23 +356,32 @@ public sealed class VRPlayerMovement : BaseComponent
 
 				Vector3 hitpoint = DrawTeleportArc( LeftHand.Transform.Position, LeftHand.Transform.Rotation.Forward * JumpForce / 30f );
 
-				bool CanFit = !Physics.Trace.Ray( hitpoint + hitnormal, hitpoint + hitnormal * Head.Transform.LocalPosition.z ).Run().Hit;
+				bool CanFit = !Scene.Trace.Ray( hitpoint + hitnormal, hitpoint + hitnormal * Head.Transform.LocalPosition.z ).Run().Hit;
 
 				if ( hitpoint != Vector3.Zero && IsOnNavmesh( hitpoint ) && hitnormal.z > 0.5f && CanFit )
 				{
-					Gizmo.Draw.LineCylinder( hitpoint, hitpoint + hitnormal * Head.Transform.LocalPosition.z, 10f, 10f, 12 );
+					Gizmo.Draw.LineCylinder( hitpoint + hitnormal * 1f, hitpoint + hitnormal * Head.Transform.LocalPosition.z, 10f, 10f, 12 );
 					foundteleport = hitpoint;
 				}
 				else
 				{
 					Gizmo.Draw.Color = Color.Red;
-					Gizmo.Draw.LineCylinder( hitpoint, hitpoint + hitnormal * Head.Transform.LocalPosition.z, 10f, 10f, 12 );
+					Gizmo.Draw.LineCylinder( hitpoint + hitnormal * 1f, hitpoint + hitnormal * Head.Transform.LocalPosition.z, 10f, 10f, 12 );
 					foundteleport = Vector3.Zero;
 				}
 			}
 		}
+	}
+
+	public void DoTeleportMovement()
+	{
+		if ( Input.VR.LeftHand.Joystick.Value.y > 0.5f )
+		{
+			ShowTeleport = true;
+		}
 		else
 		{
+			ShowTeleport = false;
 			if ( foundteleport != Vector3.Zero )
 			{
 				Transform.Position = foundteleport - (Head.Transform.LocalPosition.WithZ( 0 ) * Transform.Rotation);
@@ -401,7 +420,7 @@ public sealed class VRPlayerMovement : BaseComponent
 
 			Gizmo.Draw.Line( currentPosition, nextPosition );
 
-			var tr = Physics.Trace.Ray( currentPosition, nextPosition ).Run();
+			var tr = Scene.Trace.Ray( currentPosition, nextPosition ).Run();
 			if ( tr.Hit )
 			{
 				hitnormal = tr.Normal;

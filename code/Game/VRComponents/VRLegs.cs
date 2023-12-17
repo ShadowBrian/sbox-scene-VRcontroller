@@ -1,7 +1,7 @@
 using Sandbox;
 using System;
 
-public sealed class VRLegs : BaseComponent
+public sealed class VRLegs : Component
 {
 	public static VRLegs instance;
 
@@ -19,12 +19,12 @@ public sealed class VRLegs : BaseComponent
 
 	public bool Grounded;
 
-	public PhysicsComponent rigbod;
+	public Rigidbody rigbod;
 
-	public override void OnAwake()
+	protected override void OnAwake()
 	{
 		instance = this;
-		rigbod = GetComponent<PhysicsComponent>( false );
+		rigbod = Components.Get<Rigidbody>( false );
 	}
 
 
@@ -46,15 +46,15 @@ public sealed class VRLegs : BaseComponent
 
 	Vector3 LastPosition;
 
-	public PhysicsTraceResult facetr;
+	public SceneTraceResult facetr;
 
-	public override void FixedUpdate()
+	protected override void OnFixedUpdate()
 	{
 		PositionDelta = Head.Transform.Position - LastPosition;//Keep track of head movement for wall detection.
 
-		var legtr = Physics.Trace.Ray( Head.Transform.Position, Head.Transform.Position.WithZ( Transform.Position.z - HeightOffset ) + Vector3.Down * FootBuffer ).WithoutTags( "player" ).Run();//Ground detection.
+		var legtr = Scene.Trace.Ray( Head.Transform.Position, Head.Transform.Position.WithZ( Transform.Position.z - HeightOffset ) + Vector3.Down * FootBuffer ).WithoutTags( "player" ).Run();//Ground detection.
 
-		var ledgetr = Physics.Trace.Ray( Head.Transform.Position, Head.Transform.Position.WithZ( Transform.Position.z - HeightOffset ) + Vector3.Down * FootBuffer * 3f ).WithoutTags( "player" ).Run();//Ledge detection.
+		var ledgetr = Scene.Trace.Ray( Head.Transform.Position, Head.Transform.Position.WithZ( Transform.Position.z - HeightOffset ) + Vector3.Down * FootBuffer * 3f ).WithoutTags( "player" ).Run();//Ledge detection.
 
 		Grounded = legtr.Hit;
 
@@ -62,7 +62,7 @@ public sealed class VRLegs : BaseComponent
 
 		clampedPosDelta.z = MathX.Clamp( clampedPosDelta.z, -20f, 20f );//Clamp the height a bit more agressively so the legs actually work when falling from high up.
 
-		facetr = Physics.Trace.Ray( Head.Transform.Position, Head.Transform.Position + clampedPosDelta * 2f ).Radius( 8f ).WithoutTags( "player" ).Run();//Face trace for keeping people from walking through walls.
+		facetr = Scene.Trace.Ray( Head.Transform.Position, Head.Transform.Position + clampedPosDelta * 2f ).Radius( 8f ).WithoutTags( "player" ).Run();//Face trace for keeping people from walking through walls.
 
 		if ( facetr.Hit )//Bounce player off the walls
 		{

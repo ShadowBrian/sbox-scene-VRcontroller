@@ -1,17 +1,17 @@
 using Sandbox;
 
-public sealed class SelfDestructComponent : BaseComponent
+public sealed class SelfDestructComponent : Component
 {
 	[Property] float Seconds { get; set; }
 
 	TimeUntil timeUntilDie;
 
-	public override void OnEnabled()
+	protected override void OnEnabled()
 	{
 		timeUntilDie = Seconds;
 	}
 
-	public override void Update()
+	protected override void OnUpdate()
 	{
 		if ( timeUntilDie <= 0.0f )
 		{

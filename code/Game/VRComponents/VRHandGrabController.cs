@@ -1,9 +1,10 @@
 using Sandbox;
 using Sandbox.Engine;
+using Sandbox.VR;
 
-public sealed class VRHandGrabController : BaseComponent
+public sealed class VRHandGrabController : Component
 {
-	[Property] TrackedPoseComponent.PoseSources HandSide { get; set; }
+	[Property] VRHand.HandSources HandSide { get; set; }
 
 	[Property] GameObject HandOffset { get; set; }
 
@@ -16,35 +17,31 @@ public sealed class VRHandGrabController : BaseComponent
 	VRHandGrabController OtherHand { get; set; }
 
 
-	public override void OnAwake()
+	protected override void OnAwake()
 	{
-		anim = GetComponent<VRHandAnimationController>( false, true );
+		anim = Components.Get<VRHandAnimationController>( FindMode.EverythingInSelfAndChildren );
 
-		OtherHand = GameObject.Parent.GetComponents<VRHandGrabController>( false, true ).Where( X => X != this ).First();
+		OtherHand = GameObject.Parent.Components.GetAll<VRHandGrabController>( FindMode.EverythingInSelfAndChildren ).Where( X => X != this ).First();
 	}
 
-	public Input.VrHand TranslateHandSide()
+	public Sandbox.VR.VRController TranslateHandSide()
 	{
 		switch ( HandSide )
 		{
-			case TrackedPoseComponent.PoseSources.None:
-				return Input.VR.RightHand;
-			case TrackedPoseComponent.PoseSources.Head:
-				return Input.VR.RightHand;
-			case TrackedPoseComponent.PoseSources.LeftHand:
+			case VRHand.HandSources.Left:
 				return Input.VR.LeftHand;
-			case TrackedPoseComponent.PoseSources.RightHand:
+			case VRHand.HandSources.Right:
 				return Input.VR.RightHand;
 			default:
 				return Input.VR.RightHand;
 		}
 	}
 
-	public override void Update()
+	protected override void OnUpdate()
 	{
-		var grabtr = Physics.Trace.Ray( Transform.Position, Transform.Position ).Radius( 8f ).WithoutTags( "player" ).Run();
+		var grabtr = Scene.Trace.Ray( Transform.Position, Transform.Position ).Radius( 8f ).WithTag( "grabbable" ).Run();
 
-		if ( grabtr.Hit && grabtr.Body != null && (grabtr.Body.GameObject as GameObject).Tags.Has( "grabbable" ) )
+		if ( grabtr.Hit && grabtr.Body != null && grabtr.GameObject != null )
 		{
 			HoverObject = grabtr.Body.GameObject as GameObject;
 		}
@@ -61,14 +58,14 @@ public sealed class VRHandGrabController : BaseComponent
 			{
 				HoldingObject = HoverObject;
 
-				var grabobj = HoldingObject.GetComponent<VRGrabbableObject>( false, true );
+				var grabobj = HoldingObject.Components.Get<VRGrabbableObject>( FindMode.EverythingInSelfAndChildren );
 
 				if ( grabobj != null )
 				{
 					anim.SetCurlClamps( grabobj.curlClamps );
 				}
 
-				var physobj = HoldingObject.GetComponent<PhysicsComponent>( false, true );
+				var physobj = HoldingObject.Components.Get<Rigidbody>( FindMode.EverythingInSelfAndChildren );
 
 				if ( physobj != null )
 				{
@@ -84,7 +81,7 @@ public sealed class VRHandGrabController : BaseComponent
 			if ( TranslateHandSide().Grip.Value < 0.5f )
 			{
 				HoldingObject.Tags.Remove( "player" );
-				var physobj = HoldingObject.GetComponent<PhysicsComponent>( false, true );
+				var physobj = HoldingObject.Components.Get<Rigidbody>( FindMode.EverythingInSelfAndChildren );
 
 				if ( physobj != null )
 				{
@@ -101,7 +98,7 @@ public sealed class VRHandGrabController : BaseComponent
 			{
 				HoldingObject.Tags.Add( "player" );
 
-				var grabobj = HoldingObject.GetComponent<VRGrabbableObject>( false, true );
+				var grabobj = HoldingObject.Components.Get<VRGrabbableObject>( FindMode.EverythingInSelfAndChildren );
 
 				GameObject referenceObject = HandOffset;
 

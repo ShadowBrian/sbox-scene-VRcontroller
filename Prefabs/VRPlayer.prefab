@@ -2,17 +2,9 @@
   "RootObject": {
     "Id": "15aeff1d-1ba9-4198-9a91-927d2c940d01",
     "Name": "vrplayer",
+    "Tags": "player",
     "Enabled": true,
-    "Position": "0,0,0",
-    "Rotation": "0,0,0,1",
-    "Scale": "1,1,1",
-    "Tags": "",
     "Components": [
-      {
-        "__type": "AnchorComponent",
-        "__enabled": true,
-        "UpdateType": "All"
-      },
       {
         "__type": "VRLegs",
         "__enabled": true,
@@ -40,9 +32,15 @@
         "SnapRotateIncrements": 30
       },
       {
-        "__type": "PhysicsComponent",
+        "__type": "Rigidbody",
         "__enabled": true,
-        "Gravity": true
+        "AngularDamping": 0,
+        "Gravity": true,
+        "LinearDamping": 0
+      },
+      {
+        "__type": "VRAnchor",
+        "__enabled": true
       }
     ],
     "Children": [
@@ -50,10 +48,6 @@
         "Id": "421c18f7-33c1-493c-8483-49cbf8b19822",
         "Name": "Head",
         "Enabled": true,
-        "Position": "0,0,0",
-        "Rotation": "0,0,0,1",
-        "Scale": "1,1,1",
-        "Tags": "player",
         "Components": [
           {
             "__type": "CameraComponent",
@@ -61,58 +55,58 @@
             "BackgroundColor": "0.33333,0.46275,0.52157,1",
             "ClearFlags": "All",
             "FieldOfView": 90,
+            "IsMainCamera": true,
             "Orthographic": false,
             "OrthographicHeight": 1204,
+            "Priority": 1,
+            "RenderExcludeTags": "",
+            "RenderTags": "",
             "TargetEye": "Both",
+            "Viewport": "0,0,1,1",
             "ZFar": 5000,
             "ZNear": 1
           },
           {
-            "__type": "TrackedPoseComponent",
+            "__type": "VRTrackedObject",
             "__enabled": true,
             "PoseSource": "Head",
             "TrackingType": "All",
-            "UpdateType": "All"
+            "UseRelativeTransform": false
           }
         ]
       },
       {
         "Id": "27cffa28-046b-49fd-8d98-a1247b845418",
         "Name": "Left Hand",
-        "Enabled": true,
-        "Position": "0,0,0",
         "Rotation": "0,0,0,0",
-        "Scale": "1,1,1",
-        "Tags": "",
+        "Enabled": true,
         "Components": [
-          {
-            "__type": "TrackedPoseComponent",
-            "__enabled": true,
-            "PoseSource": "LeftHand",
-            "TrackingType": "All",
-            "UpdateType": "All"
-          },
           {
             "__type": "VRHandGrabController",
             "__enabled": true,
             "HandOffset": "0efced05-5aa7-4d07-9019-fbb2cb882926",
-            "HandSide": "LeftHand"
+            "HandSide": "Left"
+          },
+          {
+            "__type": "VRTrackedObject",
+            "__enabled": true,
+            "PoseSource": "LeftHand",
+            "TrackingType": "All",
+            "UseRelativeTransform": false
           }
         ],
         "Children": [
           {
             "Id": "da3bd340-d220-413b-a844-95f8329a32dd",
             "Name": "Left Hand Model",
-            "Enabled": true,
-            "Position": "0,0,0",
-            "Rotation": "0,0,0,1",
             "Scale": "0.8,0.8,0.8",
-            "Tags": "",
+            "Enabled": true,
             "Components": [
               {
-                "__type": "AnimatedModelComponent",
+                "__type": "SkinnedModelRenderer",
                 "__enabled": true,
                 "BodyGroups": 18446744073709551615,
+                "BoneMergeTarget": null,
                 "CreateBoneObjects": false,
                 "MaterialGroup": null,
                 "MaterialOverride": null,
@@ -123,58 +117,50 @@
               {
                 "__type": "VRHandAnimationController",
                 "__enabled": true,
-                "HandSide": "LeftHand"
+                "HandSide": "Left"
               }
             ]
           },
           {
             "Id": "0efced05-5aa7-4d07-9019-fbb2cb882926",
             "Name": "grabpos",
-            "Enabled": true,
             "Position": "-5,-2,0",
-            "Rotation": "0,0,0,1",
-            "Scale": "1,1,1",
-            "Tags": ""
+            "Enabled": true
           }
         ]
       },
       {
         "Id": "d5fe9b06-4f25-44fc-a8f2-891a1f43b164",
         "Name": "Right Hand",
-        "Enabled": true,
-        "Position": "0,0,0",
         "Rotation": "0,0,0,0",
-        "Scale": "1,1,1",
-        "Tags": "",
+        "Enabled": true,
         "Components": [
-          {
-            "__type": "TrackedPoseComponent",
-            "__enabled": true,
-            "PoseSource": "RightHand",
-            "TrackingType": "All",
-            "UpdateType": "All"
-          },
           {
             "__type": "VRHandGrabController",
             "__enabled": true,
             "HandOffset": "8ed6d307-534f-4020-bbd5-ca8086bce442",
-            "HandSide": "RightHand"
+            "HandSide": "Right"
+          },
+          {
+            "__type": "VRTrackedObject",
+            "__enabled": true,
+            "PoseSource": "RightHand",
+            "TrackingType": "All",
+            "UseRelativeTransform": false
           }
         ],
         "Children": [
           {
             "Id": "01bfb8ea-d52a-4104-a4eb-22cdb57da0c5",
             "Name": "Right Hand Model",
-            "Enabled": true,
-            "Position": "0,0,0",
-            "Rotation": "0,0,0,1",
             "Scale": "0.8,0.8,0.8",
-            "Tags": "",
+            "Enabled": true,
             "Components": [
               {
-                "__type": "AnimatedModelComponent",
+                "__type": "SkinnedModelRenderer",
                 "__enabled": true,
                 "BodyGroups": 18446744073709551615,
+                "BoneMergeTarget": null,
                 "CreateBoneObjects": false,
                 "MaterialGroup": null,
                 "MaterialOverride": null,
@@ -185,29 +171,23 @@
               {
                 "__type": "VRHandAnimationController",
                 "__enabled": true,
-                "HandSide": "RightHand"
+                "HandSide": "Right"
               }
             ]
           },
           {
             "Id": "8ed6d307-534f-4020-bbd5-ca8086bce442",
             "Name": "grabpos",
-            "Enabled": true,
             "Position": "-5,2,0",
-            "Rotation": "0,0,0,1",
-            "Scale": "1,1,1",
-            "Tags": ""
+            "Enabled": true
           }
         ]
       },
       {
         "Id": "abb669a5-ddc5-413a-84f3-72e0c085f20a",
         "Name": "Object",
-        "Enabled": true,
-        "Position": "0,0,0",
         "Rotation": "-0.000000002346994,-0.00000003950341,0.707107,0.7071065",
-        "Scale": "1,1,1",
-        "Tags": "",
+        "Enabled": true,
         "Components": [
           {
             "__type": "WorldPanel",
@@ -223,11 +203,8 @@
           {
             "Id": "82dbc09f-71c5-468d-b249-aafc1a9402a6",
             "Name": "Object",
-            "Enabled": true,
-            "Position": "0,0,0",
             "Rotation": "0,0,1,-0.0000006397578",
-            "Scale": "1,1,1",
-            "Tags": "",
+            "Enabled": true,
             "Components": [
               {
                 "__type": "SettingsUI",
@@ -239,6 +216,9 @@
       }
     ]
   },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
   "__references": [
     "shadb.hand_toon_left",
     "shadb.hand_toon_right"

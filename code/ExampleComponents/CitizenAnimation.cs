@@ -1,15 +1,15 @@
 using Sandbox;
 using System;
 
-public sealed class CitizenAnimation : BaseComponent, BaseComponent.ExecuteInEditor
+public sealed class CitizenAnimation : Component, Component.ExecuteInEditor
 {
-	[Property] public AnimatedModelComponent Target { get; set; }
+	[Property] public SkinnedModelRenderer Target { get; set; }
 
 	[Property] public GameObject EyeSource { get; set; }
 
 	[Property] public GameObject LookAtObject { get; set; }
 
-	[Property, Range( 0.5f, 1.5f)] public float Height { get; set; } = 1.0f;
+	[Property, Range( 0.5f, 1.5f )] public float Height { get; set; } = 1.0f;
 
 
 	[Property] public GameObject IkLeftHand { get; set; }
@@ -17,7 +17,7 @@ public sealed class CitizenAnimation : BaseComponent, BaseComponent.ExecuteInEdi
 	[Property] public GameObject IkLeftFoot { get; set; }
 	[Property] public GameObject IkRightFoot { get; set; }
 
-	public override void Update()
+	protected override void OnUpdate()
 	{
 		if ( LookAtObject.IsValid() )
 		{
@@ -62,7 +62,7 @@ public sealed class CitizenAnimation : BaseComponent, BaseComponent.ExecuteInEdi
 
 	public Transform GetEyeWorldTransform
 	{
-		get 
+		get
 		{
 			if ( EyeSource.IsValid() ) return EyeSource.Transform.World;
 
@@ -144,7 +144,7 @@ public sealed class CitizenAnimation : BaseComponent, BaseComponent.ExecuteInEdi
 	public float AimBodyWeight
 	{
 		get => Target.GetFloat( "aim_body_weight" );
-		set => Target.Set( "aim_headaim_body_weight_weight", value );
+		set => Target.Set( "aim_body_weight", value );
 	}
 
 

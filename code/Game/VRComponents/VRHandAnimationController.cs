@@ -1,32 +1,29 @@
 using Sandbox;
 using Sandbox.Engine;
+using Sandbox.VR;
 
-public sealed class VRHandAnimationController : BaseComponent
+public sealed class VRHandAnimationController : Component
 {
-	[Property] TrackedPoseComponent.PoseSources HandSide { get; set; }
+	[Property] VRHand.HandSources HandSide { get; set; }
 
-	AnimatedModelComponent anim { get; set; }
+	SkinnedModelRenderer anim { get; set; }
 
 	//0=Thumb, 1=Index, 2=Middle, 3=Ring, 4=Pinky
 
 	public float[] curlClamps = new float[5] { 1f, 1f, 1f, 1f, 1f };
 
-	public override void OnAwake()
+	protected override void OnAwake()
 	{
-		anim = GetComponent<AnimatedModelComponent>( false );
+		anim = Components.Get<SkinnedModelRenderer>();
 	}
 
-	public Input.VrHand TranslateHandSide()
+	public Sandbox.VR.VRController TranslateHandSide()
 	{
 		switch ( HandSide )
 		{
-			case TrackedPoseComponent.PoseSources.None:
-				return Input.VR.RightHand;
-			case TrackedPoseComponent.PoseSources.Head:
-				return Input.VR.RightHand;
-			case TrackedPoseComponent.PoseSources.LeftHand:
+			case VRHand.HandSources.Left:
 				return Input.VR.LeftHand;
-			case TrackedPoseComponent.PoseSources.RightHand:
+			case VRHand.HandSources.Right:
 				return Input.VR.RightHand;
 			default:
 				return Input.VR.RightHand;
@@ -57,7 +54,7 @@ public sealed class VRHandAnimationController : BaseComponent
 		}
 	}
 
-	public override void Update()
+	protected override void OnUpdate()
 	{
 		anim.Set( "Thumb", ClampedFingerCurl( FingerValue.ThumbCurl ) );
 		anim.Set( "Index", ClampedFingerCurl( FingerValue.IndexCurl ) );

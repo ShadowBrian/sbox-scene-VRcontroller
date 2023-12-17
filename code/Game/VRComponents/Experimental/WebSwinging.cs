@@ -1,39 +1,36 @@
 using Sandbox;
+using Sandbox.VR;
 
-public sealed class WebSwinging : BaseComponent
+public sealed class WebSwinging : Component
 {
-	[Property] TrackedPoseComponent.PoseSources HandSide { get; set; }
+	[Property] VRHand.HandSources HandSide { get; set; }
 
 	public Transform handTransform; // The hand (controller) from which the web is attached
 	[Property] public float webForce { get; set; } = 10f;    // Force applied to the rigidbody when swinging
 	float maxSwingDistance = 10000f; // Maximum distance the player can swing
 
 	private bool isSwinging = false;
-	private PhysicsComponent rb;
+	private Rigidbody rb;
 
-	public override void OnStart()
+	protected override void OnStart()
 	{
-		rb = GameObject.Parent.GetComponent<PhysicsComponent>();
+		rb = GameObject.Parent.Components.Get<Rigidbody>();
 	}
 
-	public Input.VrHand TranslateHandSide()
+	public Sandbox.VR.VRController TranslateHandSide()
 	{
 		switch ( HandSide )
 		{
-			case TrackedPoseComponent.PoseSources.None:
-				return Input.VR.RightHand;
-			case TrackedPoseComponent.PoseSources.Head:
-				return Input.VR.RightHand;
-			case TrackedPoseComponent.PoseSources.LeftHand:
+			case VRHand.HandSources.Left:
 				return Input.VR.LeftHand;
-			case TrackedPoseComponent.PoseSources.RightHand:
+			case VRHand.HandSources.Right:
 				return Input.VR.RightHand;
 			default:
 				return Input.VR.RightHand;
 		}
 	}
 
-	public override void Update()
+	protected override void OnUpdate()
 	{
 		handTransform = Transform.World;
 
@@ -63,7 +60,7 @@ public sealed class WebSwinging : BaseComponent
 
 	void StartSwinging()
 	{
-		var hit = Physics.Trace.Ray( handTransform.Position, handTransform.Position + (handTransform.Rotation.Forward + handTransform.Rotation.Down) * maxSwingDistance ).Run();
+		var hit = Scene.Trace.Ray( handTransform.Position, handTransform.Position + (handTransform.Rotation.Forward + handTransform.Rotation.Down) * maxSwingDistance ).Run();
 
 		if ( hit.Hit && !isSwinging )
 		{

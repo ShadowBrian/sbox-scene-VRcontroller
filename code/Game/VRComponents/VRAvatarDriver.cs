@@ -1,13 +1,13 @@
 using Sandbox;
 
-public sealed class VRAvatarDriver : BaseComponent
+public sealed class VRAvatarDriver : Component
 {
 	[Property] public GameObject SourcePlayer { get; set; }
 
 	[Property] public bool IsLocal { get; set; }
 
 	CitizenAnimation anim { get; set; }
-	AnimatedModelComponent animModel { get; set; }
+	SkinnedModelRenderer animModel { get; set; }
 
 	GameObject Head;
 	GameObject LeftHand;
@@ -18,16 +18,16 @@ public sealed class VRAvatarDriver : BaseComponent
 
 	bool Initialized;
 
-	public override void OnStart()
+	protected override void OnStart()
 	{
 		Head = SourcePlayer.Children.Where( C => C.Name == "Head" ).First();
 
-		LeftHand = SourcePlayer.GetComponents<VRHandAnimationController>( false, true ).Where( C => C.GameObject.Name == "Left Hand Model" ).First().GameObject;
-		RightHand = SourcePlayer.GetComponents<VRHandAnimationController>( false, true ).Where( C => C.GameObject.Name == "Right Hand Model" ).First().GameObject;
+		LeftHand = SourcePlayer.Components.GetAll<VRHandAnimationController>().Where( C => C.GameObject.Name == "Left Hand Model" ).First().GameObject;
+		RightHand = SourcePlayer.Components.GetAll<VRHandAnimationController>().Where( C => C.GameObject.Name == "Right Hand Model" ).First().GameObject;
 
-		anim = GetComponent<CitizenAnimation>( false, true );
+		anim = Components.Get<CitizenAnimation>( FindMode.EverythingInSelfAndChildren );
 
-		animModel = anim.GetComponent<AnimatedModelComponent>();
+		animModel = anim.Components.Get<SkinnedModelRenderer>();
 
 		if ( Head.IsValid() && LeftHand.IsValid() && RightHand.IsValid() )
 		{
@@ -43,9 +43,9 @@ public sealed class VRAvatarDriver : BaseComponent
 
 	Vector3 LastPosition;
 
-	PhysicsTraceResult heighttr;
+	SceneTraceResult heighttr;
 
-	public override void Update()
+	protected override void OnUpdate()
 	{
 		if ( !Initialized ) return;
 
@@ -55,16 +55,16 @@ public sealed class VRAvatarDriver : BaseComponent
 
 		anim.IkRightHand = RightBone;
 
-		LeftBone.Transform.World = LeftHand.GetComponent<AnimatedModelComponent>().GetBoneTransform( LeftHand.GetComponent<AnimatedModelComponent>().Model.Bones.GetBone( "hand_R" ), true );
+		LeftBone.Transform.World = LeftHand.Components.Get<SkinnedModelRenderer>().GetBoneTransform( LeftHand.Components.Get<SkinnedModelRenderer>().Model.Bones.GetBone( "hand_R" ), true );
 
 		LeftBone.Transform.LocalRotation *= Rotation.FromRoll( 180 );
 
-		RightBone.Transform.World = RightHand.GetComponent<AnimatedModelComponent>().GetBoneTransform( RightHand.GetComponent<AnimatedModelComponent>().Model.Bones.GetBone( "hand_R" ), true );
+		RightBone.Transform.World = RightHand.Components.Get<SkinnedModelRenderer>().GetBoneTransform( RightHand.Components.Get<SkinnedModelRenderer>().Model.Bones.GetBone( "hand_R" ), true );
 
 		float ScaleOffset = 1f - (1f - (animModel.GetFloat( "scale_height" ) - 0.1f));
 
 
-		heighttr = Physics.Trace.Ray( Head.Transform.Position, Head.Transform.Position.WithZ( SourcePlayer.Transform.Position.z ) ).WithoutTags( "player" ).Run();
+		heighttr = Scene.Trace.Ray( Head.Transform.Position, Head.Transform.Position.WithZ( SourcePlayer.Transform.Position.z ) ).WithoutTags( "player" ).Run();
 
 
 		float LocalEyeHeight = heighttr.Distance / 64f;
@@ -72,15 +72,15 @@ public sealed class VRAvatarDriver : BaseComponent
 		animModel.Set( "duck", (ScaleOffset - LocalEyeHeight) * 3f );
 		if ( IsLocal )
 		{
-			animModel.SceneObject.SetBodyGroup( "Hands", 1 );
-			animModel.SceneObject.SetBodyGroup( "Head", 1 );
+			animModel.SceneModel.SetBodyGroup( "Hands", 1 );
+			animModel.SceneModel.SetBodyGroup( "Head", 1 );
 		}
 
 		Transform.Position = Head.Transform.Position.WithZ( heighttr.EndPosition.z ) - Head.Transform.Rotation.Forward.WithZ( 0 ) * animModel.GetFloat( "duck" ) * 20f;
 		Transform.Rotation = Rotation.LookAt( Head.Transform.Rotation.Forward.WithZ( 0 ) );
 	}
 
-	public override void FixedUpdate()
+	protected override void OnFixedUpdate()
 	{
 		if ( !Initialized ) return;
 
