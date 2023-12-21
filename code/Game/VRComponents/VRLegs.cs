@@ -46,7 +46,7 @@ public sealed class VRLegs : Component
 
 	Vector3 LastPosition;
 
-	public SceneTraceResult facetr;
+	public SceneTraceResult facetr, chesttr;
 
 	protected override void OnFixedUpdate()
 	{
@@ -68,6 +68,14 @@ public sealed class VRLegs : Component
 		{
 			rigbod.Velocity += facetr.Normal * 8f;
 			Transform.Position += facetr.Normal * PositionDelta.Length;
+		}
+
+		chesttr = Scene.Trace.Ray( Head.Transform.Position - (Vector3.Up * Head.Transform.LocalPosition.z / 2f), Head.Transform.Position - (Vector3.Up * Head.Transform.LocalPosition.z / 2f) + clampedPosDelta * 2f ).Radius( 8f ).WithoutTags( "player" ).Run();//Face trace for keeping people from walking through walls.
+
+		if ( chesttr.Hit && !Jumping )//Bounce player off tables if not jumping
+		{
+			rigbod.Velocity += chesttr.Normal * 8f;
+			Transform.Position += chesttr.Normal * PositionDelta.Length;
 		}
 
 		if ( Jumping )//Remove the ledge jump boost if you're already normal-jumping.
