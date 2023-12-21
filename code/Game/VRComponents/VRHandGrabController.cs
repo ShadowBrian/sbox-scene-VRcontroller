@@ -43,7 +43,7 @@ public sealed class VRHandGrabController : Component
 
 		if ( grabtr.Hit && grabtr.Body != null && grabtr.GameObject != null )
 		{
-			HoverObject = grabtr.Body.GameObject as GameObject;
+			HoverObject = grabtr.GameObject;
 		}
 		else
 		{
