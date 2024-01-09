@@ -1,4 +1,5 @@
 using Sandbox;
+using Sandbox.Citizen;
 using System.Drawing;
 
 
@@ -14,7 +15,7 @@ public class PlayerController : Component
 	[Property] GameObject Body { get; set; }
 	[Property] GameObject Eye { get; set; }
 	[Property] bool FirstPerson { get; set; }
-	[Property] CitizenAnimation AnimationHelper { get; set; }
+	[Property] CitizenAnimationHelper AnimationHelper { get; set; }
 
 	public Angles EyeAngles;
 
@@ -69,7 +70,7 @@ public class PlayerController : Component
 			AnimationHelper.IsGrounded = cc.IsOnGround;
 			AnimationHelper.FootShuffle = rotateDifference;
 			AnimationHelper.WithLook( EyeAngles.Forward, 1, 1, 1.0f );
-			AnimationHelper.MoveStyle = Input.Down( "Run" ) ? CitizenAnimation.MoveStyles.Run : CitizenAnimation.MoveStyles.Walk;
+			AnimationHelper.MoveStyle = Input.Down( "Run" ) ? CitizenAnimationHelper.MoveStyles.Run : CitizenAnimationHelper.MoveStyles.Walk;
 		}
 	}
 

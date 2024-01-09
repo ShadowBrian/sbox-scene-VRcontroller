@@ -1,4 +1,5 @@
 using Sandbox;
+using Sandbox.Citizen;
 
 public sealed class VRAvatarDriver : Component
 {
@@ -6,7 +7,7 @@ public sealed class VRAvatarDriver : Component
 
 	[Property] public bool IsLocal { get; set; }
 
-	CitizenAnimation anim { get; set; }
+	CitizenAnimationHelper anim { get; set; }
 	SkinnedModelRenderer animModel { get; set; }
 
 	GameObject Head;
@@ -25,9 +26,9 @@ public sealed class VRAvatarDriver : Component
 		LeftHand = SourcePlayer.Components.GetAll<VRHandAnimationController>().Where( C => C.GameObject.Name == "Left Hand Model" ).First().GameObject;
 		RightHand = SourcePlayer.Components.GetAll<VRHandAnimationController>().Where( C => C.GameObject.Name == "Right Hand Model" ).First().GameObject;
 
-		anim = Components.Get<CitizenAnimation>( FindMode.EverythingInSelfAndChildren );
+		anim = Components.Get<CitizenAnimationHelper>( FindMode.EverythingInSelfAndChildren );
 
-		animModel = anim.Target.Components.Get<SkinnedModelRenderer>();
+		animModel = anim.Target.Components.Get<SkinnedModelRenderer>( FindMode.EverythingInSelfAndChildren );
 
 		if ( Head.IsValid() && LeftHand.IsValid() && RightHand.IsValid() )
 		{
@@ -45,6 +46,13 @@ public sealed class VRAvatarDriver : Component
 
 	SceneTraceResult heighttr;
 
+	public Transform GetBoneTransform( SkinnedModelRenderer model, BoneCollection.Bone bone )
+	{
+		Transform trans;
+		model.TryGetBoneTransform( bone, out trans );
+		return trans;
+	}
+
 	protected override void OnUpdate()
 	{
 		if ( !Initialized ) return;
@@ -55,11 +63,11 @@ public sealed class VRAvatarDriver : Component
 
 		anim.IkRightHand = RightBone;
 
-		LeftBone.Transform.World = LeftHand.Components.Get<SkinnedModelRenderer>().GetBoneTransform( LeftHand.Components.Get<SkinnedModelRenderer>().Model.Bones.GetBone( "hand_R" ), true );
+		LeftBone.Transform.World = GetBoneTransform( LeftHand.Components.Get<SkinnedModelRenderer>(), LeftHand.Components.Get<SkinnedModelRenderer>().Model.Bones.GetBone( "hand_R" ) );
 
 		LeftBone.Transform.LocalRotation *= Rotation.FromRoll( 180 );
 
-		RightBone.Transform.World = RightHand.Components.Get<SkinnedModelRenderer>().GetBoneTransform( RightHand.Components.Get<SkinnedModelRenderer>().Model.Bones.GetBone( "hand_R" ), true );
+		RightBone.Transform.World = GetBoneTransform( RightHand.Components.Get<SkinnedModelRenderer>(), RightHand.Components.Get<SkinnedModelRenderer>().Model.Bones.GetBone( "hand_R" ) );
 
 		float ScaleOffset = 1f - (1f - (animModel.GetFloat( "scale_height" ) - 0.1f));
 

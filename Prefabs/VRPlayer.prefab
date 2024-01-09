@@ -111,7 +111,7 @@
                 "MaterialGroup": null,
                 "MaterialOverride": null,
                 "Model": "models/hands_discgolf/hand_toon_left.vmdl",
-                "ShouldCastShadows": true,
+                "RenderType": "On",
                 "Tint": "1,1,1,1"
               },
               {
@@ -165,7 +165,7 @@
                 "MaterialGroup": null,
                 "MaterialOverride": null,
                 "Model": "models/hands_discgolf/hand_toon_right.vmdl",
-                "ShouldCastShadows": true,
+                "RenderType": "On",
                 "Tint": "1,1,1,1"
               },
               {
