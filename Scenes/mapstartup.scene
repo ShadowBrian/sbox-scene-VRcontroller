@@ -10,13 +10,12 @@
           "__version": 0,
           "__type": "MapInstance",
           "__enabled": true,
-          "MapName": "https://asset.party/facepunch/flatgrass",
+          "MapName": "",
           "OnMapLoaded": null,
           "OnMapUnloaded": null,
           "UseMapFromLaunch": true
         }
-      ],
-      "Children": []
+      ]
     },
     {
       "Id": "88ee0d62-5822-4c01-b22b-12744226aca6",
@@ -354,136 +353,6 @@
           ]
         }
       ]
-    },
-    {
-      "Id": "cf000cc4-24f7-410d-a0bd-6c4a9cbe3274",
-      "Name": "Sphere",
-      "Position": "448.3884,-234.2503,55.80281",
-      "Scale": "0.1640355,0.1640355,0.1640355",
-      "Tags": "grabbable",
-      "Enabled": true,
-      "Components": [
-        {
-          "__version": 0,
-          "__type": "ModelRenderer",
-          "__enabled": true,
-          "BodyGroups": 18446744073709551615,
-          "MaterialGroup": null,
-          "MaterialOverride": null,
-          "Model": "models/dev/sphere.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__version": 0,
-          "__type": "SphereCollider",
-          "__enabled": true,
-          "Center": "0,0,0",
-          "IsTrigger": false,
-          "Radius": 32,
-          "Static": false,
-          "Surface": null
-        },
-        {
-          "__version": 0,
-          "__type": "Rigidbody",
-          "__enabled": true,
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "RigidbodyFlags": 0,
-          "StartAsleep": false
-        },
-        {
-          "__version": 0,
-          "__type": "VRGrabbableObject",
-          "__enabled": true,
-          "HandposeObject": null
-        }
-      ]
-    },
-    {
-      "Id": "05f57e11-bdd9-41f3-be10-fd51d29292d9",
-      "Name": "gun",
-      "Position": "455.5675,-216.7357,49.92271",
-      "Rotation": "0,0,1,-0.0000006397578",
-      "Tags": "grabbable",
-      "Enabled": true,
-      "Components": [
-        {
-          "__version": 0,
-          "__type": "ModelRenderer",
-          "__enabled": true,
-          "BodyGroups": 18446744073709551615,
-          "MaterialGroup": null,
-          "MaterialOverride": null,
-          "Model": "models/weapons/w_pistol.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__version": 0,
-          "__type": "Rigidbody",
-          "__enabled": true,
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "RigidbodyFlags": 0,
-          "StartAsleep": false
-        },
-        {
-          "__version": 0,
-          "__type": "ModelCollider",
-          "__enabled": true,
-          "IsTrigger": false,
-          "Model": "models/weapons/w_pistol.vmdl",
-          "Static": false,
-          "Surface": null
-        },
-        {
-          "__version": 0,
-          "__type": "VRGrabbableObject",
-          "__enabled": true,
-          "HandposeObject": "41cac0e6-5e4d-4e98-bc10-ceaca8fd0fa2"
-        }
-      ],
-      "Children": [
-        {
-          "Id": "41cac0e6-5e4d-4e98-bc10-ceaca8fd0fa2",
-          "Name": "handpose",
-          "Position": "-1.152174,0.000001472313,4.486036",
-          "Rotation": "-0.4633844,0.03121732,-0.8836037,-0.05952681",
-          "Tags": "grabbable",
-          "Enabled": true,
-          "Components": [
-            {
-              "__version": 0,
-              "__type": "SkinnedModelRenderer",
-              "__enabled": false,
-              "BodyGroups": 18446744073709551615,
-              "BoneMergeTarget": null,
-              "CreateBoneObjects": false,
-              "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Model": "models/hands_discgolf/hand_toon_right.vmdl",
-              "RenderType": "On",
-              "Tint": "1,1,1,1"
-            },
-            {
-              "__version": 0,
-              "__type": "VRHandPoseController",
-              "__enabled": true,
-              "IndexClamp": 0.5,
-              "MiddleClamp": 1,
-              "PinkyClamp": 1,
-              "RingClamp": 1,
-              "ThumbClamp": 1
-            }
-          ]
-        }
-      ]
     }
   ],
   "SceneProperties": {
@@ -498,7 +367,6 @@
   "Title": "controllertest",
   "Description": "",
   "__references": [
-    "gok.w_pistol",
     "shadb.hand_toon_left",
     "shadb.hand_toon_right"
   ]

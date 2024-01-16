@@ -27,6 +27,30 @@ public sealed class VRLegs : Component
 		rigbod = Components.Get<Rigidbody>( false );
 	}
 
+	protected override void OnEnabled()
+	{
+		var mapInstance = Scene.GetAllComponents<MapInstance>().First();
+		if ( mapInstance != null )
+		{
+			mapInstance.MapName = Scene.Title;
+			mapInstance.OnMapLoaded += RespawnPlayer;
+
+			// already loaded
+			if ( mapInstance.IsLoaded )
+			{
+				RespawnPlayer();
+			}
+		}
+	}
+
+	public void RespawnPlayer()
+	{
+		var spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
+		var randomSpawnPoint = new Transform( Vector3.Zero, Rotation.Identity );
+		if ( spawnPoints.Length > 0 ) randomSpawnPoint = spawnPoints[Random.Shared.Int( 0, spawnPoints.Length - 1 )].Transform.World;
+
+		Transform.World = randomSpawnPoint;
+	}
 
 	Vector3 ClampMagnitude( Vector3 vector, float maxMagnitude )
 	{

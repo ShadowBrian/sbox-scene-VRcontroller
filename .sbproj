@@ -65,6 +65,8 @@
         }
       ]
     },
-    "StartupScene": "scenes/controllertest.scene"
+    "StartupScene": "scenes/controllertest.scene",
+    "MapStartupScene": "scenes/mapstartup.scene",
+    "LaunchMode": "Launcher"
   }
 }
