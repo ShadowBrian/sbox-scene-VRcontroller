@@ -21,18 +21,20 @@ public sealed class VRLegs : Component
 
 	public Rigidbody rigbod;
 
+	public delegate void RespawnEvent();
+	public event RespawnEvent OnRespawn;
+
 	protected override void OnAwake()
 	{
 		instance = this;
 		rigbod = Components.Get<Rigidbody>( false );
 	}
-
-	protected override void OnEnabled()
+	MapInstance mapInstance;
+	protected override void OnStart()
 	{
-		var mapInstance = Scene.GetAllComponents<MapInstance>().First();
+		mapInstance = Scene.GetAllComponents<MapInstance>().First();
 		if ( mapInstance != null )
 		{
-			mapInstance.MapName = Scene.Title;
 			mapInstance.OnMapLoaded += RespawnPlayer;
 
 			// already loaded
@@ -45,11 +47,20 @@ public sealed class VRLegs : Component
 
 	public void RespawnPlayer()
 	{
-		var spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
-		var randomSpawnPoint = new Transform( Vector3.Zero, Rotation.Identity );
-		if ( spawnPoints.Length > 0 ) randomSpawnPoint = spawnPoints[Random.Shared.Int( 0, spawnPoints.Length - 1 )].Transform.World;
+		if ( mapInstance != null && mapInstance.IsLoaded )
+		{
+			var spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
+			var randomSpawnPoint = new Transform( Vector3.Zero, Rotation.Identity );
+			if ( spawnPoints.Length > 0 ) randomSpawnPoint = spawnPoints[Random.Shared.Int( 0, spawnPoints.Length - 1 )].Transform.World;
 
-		Transform.World = randomSpawnPoint;
+			Transform.World = randomSpawnPoint;
+			rigbod.Velocity = Vector3.Zero;
+			OnRespawn.Invoke();
+		}
+		else
+		{
+			mapInstance = Scene.GetAllComponents<MapInstance>().First();
+		}
 	}
 
 	Vector3 ClampMagnitude( Vector3 vector, float maxMagnitude )
@@ -74,6 +85,11 @@ public sealed class VRLegs : Component
 
 	protected override void OnFixedUpdate()
 	{
+		if ( Transform.Position.z < -1000f )
+		{
+			RespawnPlayer();
+		}
+
 		PositionDelta = Head.Transform.Position - LastPosition;//Keep track of head movement for wall detection.
 
 		var legtr = Scene.Trace.Ray( Head.Transform.Position, Head.Transform.Position.WithZ( Transform.Position.z - HeightOffset ) + Vector3.Down * FootBuffer ).WithoutTags( "player" ).Run();//Ground detection.

@@ -86,6 +86,13 @@ public sealed class VRPlayerMovement : Component
 		mesh = new NavigationMesh();
 		mesh.Generate( Scene.PhysicsWorld );
 		teleportNodes = mesh.Nodes.Values.ToList();
+		Components.Get<VRLegs>().OnRespawn += RegenerateNavmesh;
+	}
+
+	public void RegenerateNavmesh()
+	{
+		mesh.Generate( Scene.PhysicsWorld );
+		teleportNodes = mesh.Nodes.Values.ToList();
 	}
 
 	public string[] OptionSelections = new string[3] { "Movement", "Direction", "Rotation" };
@@ -349,7 +356,7 @@ public sealed class VRPlayerMovement : Component
 		{
 			if ( mesh != null )
 			{
-				Gizmo.Draw.Color = Color.Cyan.WithAlpha( 0.1f );
+				Gizmo.Draw.Color = Color.Cyan.WithAlpha( 0.25f );
 				Gizmo.Draw.LineNavigationMesh( mesh );
 
 				Gizmo.Draw.Color = Color.Cyan;
