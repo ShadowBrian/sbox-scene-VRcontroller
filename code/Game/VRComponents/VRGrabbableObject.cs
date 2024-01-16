@@ -14,7 +14,7 @@ public sealed class VRGrabbableObject : Component
 	{
 		if ( HandposeObject.IsValid() )
 		{
-			HandposeObject.Components.Get<SkinnedModelRenderer>().Enabled = false;
+			HandposeObject.Components.Get<SkinnedModelRenderer>( FindMode.EverythingInSelfAndChildren ).Enabled = false;
 			var handpose = HandposeObject.Components.Get<VRHandPoseController>( false );
 			if ( handpose != null )
 			{
