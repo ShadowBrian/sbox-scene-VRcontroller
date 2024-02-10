@@ -71,10 +71,6 @@ public sealed class VRPlayerMovement : Component
 
 	public float YawRotation = 0f;
 
-	NavigationMesh mesh { get; set; }
-
-	List<NavigationMesh.Node> teleportNodes { get; set; }
-
 	[Property] GameObject OptionsMenu { get; set; }
 
 	protected override void OnStart()
@@ -83,16 +79,19 @@ public sealed class VRPlayerMovement : Component
 
 		YawRotation = Transform.Rotation.Yaw();
 
-		mesh = new NavigationMesh();
-		mesh.Generate( Scene.PhysicsWorld );
-		teleportNodes = mesh.Nodes.Values.ToList();
+		Scene.NavMesh.IsEnabled = true;
+
+		Scene.NavMesh.Generate( Scene.PhysicsWorld );
+		//teleportNodes = mesh.Nodes.Values.ToList();
 		Components.Get<VRLegs>().OnRespawn += RegenerateNavmesh;
 	}
 
 	public void RegenerateNavmesh()
 	{
-		mesh.Generate( Scene.PhysicsWorld );
-		teleportNodes = mesh.Nodes.Values.ToList();
+		Scene.NavMesh.IsEnabled = true;
+
+		Scene.NavMesh.Generate( Scene.PhysicsWorld );
+		//teleportNodes = mesh.Nodes.Values.ToList();
 	}
 
 	public string[] OptionSelections = new string[3] { "Movement", "Direction", "Rotation" };
@@ -354,10 +353,9 @@ public sealed class VRPlayerMovement : Component
 	{
 		if ( ShowTeleport )
 		{
-			if ( mesh != null )
+			if ( Scene.NavMesh.IsEnabled )
 			{
 				Gizmo.Draw.Color = Color.Cyan.WithAlpha( 0.25f );
-				Gizmo.Draw.LineNavigationMesh( mesh );
 
 				Gizmo.Draw.Color = Color.Cyan;
 
@@ -399,13 +397,12 @@ public sealed class VRPlayerMovement : Component
 
 	public bool IsOnNavmesh( Vector3 position )
 	{
-		foreach ( var node in teleportNodes )
+
+		if ( Vector3.DistanceBetween( Scene.NavMesh.GetClosestPoint( position ) ?? Vector3.Zero, position ) < 15f )
 		{
-			if ( Vector3.DistanceBetween( node.ClosestPoint( position ), position ) < 15f )
-			{
-				return true;
-			}
+			return true;
 		}
+
 		return false;
 	}
 
