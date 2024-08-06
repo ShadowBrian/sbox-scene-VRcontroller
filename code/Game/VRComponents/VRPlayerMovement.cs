@@ -82,7 +82,7 @@ public sealed class VRPlayerMovement : Component
 		Scene.NavMesh.IsEnabled = true;
 
 		Scene.NavMesh.Generate( Scene.PhysicsWorld );
-		//teleportNodes = mesh.Nodes.Values.ToList();
+
 		Components.Get<VRLegs>().OnRespawn += RegenerateNavmesh;
 	}
 
@@ -91,7 +91,6 @@ public sealed class VRPlayerMovement : Component
 		Scene.NavMesh.IsEnabled = true;
 
 		Scene.NavMesh.Generate( Scene.PhysicsWorld );
-		//teleportNodes = mesh.Nodes.Values.ToList();
 	}
 
 	public string[] OptionSelections = new string[3] { "Movement", "Direction", "Rotation" };
@@ -102,6 +101,8 @@ public sealed class VRPlayerMovement : Component
 
 	protected override void OnFixedUpdate()
 	{
+		if ( IsProxy ) return;
+
 		if ( !Input.VR.LeftHand.ButtonB.IsPressed && JustOpened )
 		{
 			JustOpened = false;
@@ -351,6 +352,8 @@ public sealed class VRPlayerMovement : Component
 
 	protected override void OnUpdate()
 	{
+		if ( IsProxy ) return;
+
 		if ( ShowTeleport )
 		{
 			if ( Scene.NavMesh.IsEnabled )

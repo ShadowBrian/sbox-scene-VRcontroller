@@ -99,6 +99,8 @@ public sealed class VRLegs : Component
 
 	protected override void OnFixedUpdate()
 	{
+		if ( IsProxy ) return;
+
 		if ( Transform.Position.z < -1000f )
 		{
 			RespawnPlayer();

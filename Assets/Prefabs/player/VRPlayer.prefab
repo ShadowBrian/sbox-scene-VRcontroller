@@ -2,7 +2,7 @@
   "RootObject": {
     "__guid": "15aeff1d-1ba9-4198-9a91-927d2c940d01",
     "Flags": 0,
-    "Name": "VRPlayer",
+    "Name": "vrplayer",
     "Enabled": true,
     "Components": [
       {
@@ -14,7 +14,7 @@
           "go": "60ce69ba-d783-4e87-adbe-13cbcb902b45"
         },
         "HeightOffset": 0,
-        "LedgeHopPower": 72,
+        "LedgeHopPower": 32,
         "MaxStandableAngle": 35
       },
       {
@@ -250,7 +250,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
