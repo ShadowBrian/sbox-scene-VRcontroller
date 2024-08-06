@@ -1,57 +1,78 @@
 {
   "RootObject": {
-    "Id": "15aeff1d-1ba9-4198-9a91-927d2c940d01",
-    "Name": "vrplayer",
-    "Tags": "player",
+    "__guid": "15aeff1d-1ba9-4198-9a91-927d2c940d01",
+    "Flags": 0,
+    "Name": "VRPlayer",
     "Enabled": true,
     "Components": [
       {
         "__type": "VRLegs",
-        "__enabled": true,
+        "__guid": "8ef8c187-1c4d-48ec-adb6-9cba10cfd1ca",
         "FootBuffer": 5,
-        "Head": "421c18f7-33c1-493c-8483-49cbf8b19822",
+        "Head": {
+          "_type": "gameobject",
+          "go": "60ce69ba-d783-4e87-adbe-13cbcb902b45"
+        },
         "HeightOffset": 0,
         "LedgeHopPower": 72,
         "MaxStandableAngle": 35
       },
       {
         "__type": "VRPlayerMovement",
-        "__enabled": true,
-        "Head": "421c18f7-33c1-493c-8483-49cbf8b19822",
+        "__guid": "c5b8a5cb-c955-4b14-b6cb-37b474a941e0",
+        "Head": {
+          "_type": "gameobject",
+          "go": "60ce69ba-d783-4e87-adbe-13cbcb902b45"
+        },
         "JoystickMovementSpeed": 4,
         "JumpForce": 400,
         "JumpForwardMult": 0.5,
         "JumpUpMult": 1,
-        "LeftHand": "27cffa28-046b-49fd-8d98-a1247b845418",
+        "LeftHand": {
+          "_type": "gameobject",
+          "go": "79b00f98-497f-4710-b728-7ca4065f4f90"
+        },
         "movementDirection": "Head",
         "movementMethod": "ArmSwinger",
-        "OptionsMenu": "abb669a5-ddc5-413a-84f3-72e0c085f20a",
-        "RightHand": "d5fe9b06-4f25-44fc-a8f2-891a1f43b164",
+        "OptionsMenu": {
+          "_type": "gameobject",
+          "go": "12ad50bf-e490-4c0a-bd54-da58e080a56d"
+        },
+        "RightHand": {
+          "_type": "gameobject",
+          "go": "2973dd08-7a1f-42c7-9954-645f77b2adaf"
+        },
         "rotationMethod": "Snap",
         "SmoothRotateSpeed": 60,
         "SnapRotateIncrements": 30
       },
       {
-        "__type": "Rigidbody",
-        "__enabled": true,
+        "__type": "Sandbox.Rigidbody",
+        "__guid": "e7d1bef1-6d0c-44b5-90ea-c328e9d56e10",
         "AngularDamping": 0,
         "Gravity": true,
-        "LinearDamping": 0
+        "LinearDamping": 0,
+        "Locking": {},
+        "MassOverride": 0,
+        "MotionEnabled": true,
+        "RigidbodyFlags": 0,
+        "StartAsleep": false
       },
       {
-        "__type": "VRAnchor",
-        "__enabled": true
+        "__type": "Sandbox.VR.VRAnchor",
+        "__guid": "e984fa2f-aab3-4ef7-bf13-9e697837a829"
       }
     ],
     "Children": [
       {
-        "Id": "421c18f7-33c1-493c-8483-49cbf8b19822",
+        "__guid": "60ce69ba-d783-4e87-adbe-13cbcb902b45",
+        "Flags": 0,
         "Name": "Head",
         "Enabled": true,
         "Components": [
           {
-            "__type": "CameraComponent",
-            "__enabled": true,
+            "__type": "Sandbox.CameraComponent",
+            "__guid": "661b1dc0-c651-4a9d-a20d-bd72248877c3",
             "BackgroundColor": "0.33333,0.46275,0.52157,1",
             "ClearFlags": "All",
             "FieldOfView": 90,
@@ -67,8 +88,8 @@
             "ZNear": 1
           },
           {
-            "__type": "VRTrackedObject",
-            "__enabled": true,
+            "__type": "Sandbox.VR.VRTrackedObject",
+            "__guid": "6f57bc37-87e7-4475-90a1-b2993d6854ee",
             "PoseSource": "Head",
             "TrackingType": "All",
             "UseRelativeTransform": false
@@ -76,20 +97,24 @@
         ]
       },
       {
-        "Id": "27cffa28-046b-49fd-8d98-a1247b845418",
+        "__guid": "79b00f98-497f-4710-b728-7ca4065f4f90",
+        "Flags": 0,
         "Name": "Left Hand",
         "Rotation": "0,0,0,0",
         "Enabled": true,
         "Components": [
           {
             "__type": "VRHandGrabController",
-            "__enabled": true,
-            "HandOffset": "0efced05-5aa7-4d07-9019-fbb2cb882926",
+            "__guid": "7dedd917-ed6b-48fb-acf7-01398ca64eb1",
+            "HandOffset": {
+              "_type": "gameobject",
+              "go": "c2f65c52-3575-448b-8baa-22754041ae31"
+            },
             "HandSide": "Left"
           },
           {
-            "__type": "VRTrackedObject",
-            "__enabled": true,
+            "__type": "Sandbox.VR.VRTrackedObject",
+            "__guid": "19aca166-f1f2-459d-bffc-42b86a2d1d6d",
             "PoseSource": "LeftHand",
             "TrackingType": "All",
             "UseRelativeTransform": false
@@ -97,32 +122,34 @@
         ],
         "Children": [
           {
-            "Id": "da3bd340-d220-413b-a844-95f8329a32dd",
+            "__guid": "2d8fe417-8b75-4b3b-b8fc-d263de712152",
+            "Flags": 0,
             "Name": "Left Hand Model",
+            "Position": "4.4951,-0.02706805,-0.905368",
+            "Rotation": "0.00005510449,0.1314044,-0.0004239511,0.9913291",
             "Scale": "0.8,0.8,0.8",
             "Enabled": true,
             "Components": [
               {
-                "__type": "SkinnedModelRenderer",
-                "__enabled": true,
+                "__type": "Sandbox.SkinnedModelRenderer",
+                "__guid": "ec9d2b6c-4a2a-4f00-843e-38a6af04e893",
                 "BodyGroups": 18446744073709551615,
-                "BoneMergeTarget": null,
                 "CreateBoneObjects": false,
-                "MaterialGroup": null,
-                "MaterialOverride": null,
                 "Model": "models/hands_discgolf/hand_toon_left.vmdl",
                 "RenderType": "On",
-                "Tint": "1,1,1,1"
+                "Tint": "1,1,1,1",
+                "UseAnimGraph": true
               },
               {
                 "__type": "VRHandAnimationController",
-                "__enabled": true,
+                "__guid": "e365bbb8-e194-4508-8367-c2a02bdca71e",
                 "HandSide": "Left"
               }
             ]
           },
           {
-            "Id": "0efced05-5aa7-4d07-9019-fbb2cb882926",
+            "__guid": "c2f65c52-3575-448b-8baa-22754041ae31",
+            "Flags": 0,
             "Name": "grabpos",
             "Position": "-5,-2,0",
             "Enabled": true
@@ -130,20 +157,24 @@
         ]
       },
       {
-        "Id": "d5fe9b06-4f25-44fc-a8f2-891a1f43b164",
+        "__guid": "2973dd08-7a1f-42c7-9954-645f77b2adaf",
+        "Flags": 0,
         "Name": "Right Hand",
         "Rotation": "0,0,0,0",
         "Enabled": true,
         "Components": [
           {
             "__type": "VRHandGrabController",
-            "__enabled": true,
-            "HandOffset": "8ed6d307-534f-4020-bbd5-ca8086bce442",
+            "__guid": "03954172-7189-4d0c-930b-1169776b1d7e",
+            "HandOffset": {
+              "_type": "gameobject",
+              "go": "eb0833e6-8789-4b7c-8b33-cbbb32076f13"
+            },
             "HandSide": "Right"
           },
           {
-            "__type": "VRTrackedObject",
-            "__enabled": true,
+            "__type": "Sandbox.VR.VRTrackedObject",
+            "__guid": "794295d6-ee4b-4c55-8f22-3efebba141d6",
             "PoseSource": "RightHand",
             "TrackingType": "All",
             "UseRelativeTransform": false
@@ -151,32 +182,34 @@
         ],
         "Children": [
           {
-            "Id": "01bfb8ea-d52a-4104-a4eb-22cdb57da0c5",
+            "__guid": "7889f2c1-aca4-4015-9290-f7f7c223a07f",
+            "Flags": 0,
             "Name": "Right Hand Model",
+            "Position": "4.4951,-0.02706805,-0.905368",
+            "Rotation": "0.00005510449,0.1314044,-0.0004239511,0.9913291",
             "Scale": "0.8,0.8,0.8",
             "Enabled": true,
             "Components": [
               {
-                "__type": "SkinnedModelRenderer",
-                "__enabled": true,
+                "__type": "Sandbox.SkinnedModelRenderer",
+                "__guid": "0af584d0-76e0-4b7d-89dd-a5db6ce5bf06",
                 "BodyGroups": 18446744073709551615,
-                "BoneMergeTarget": null,
                 "CreateBoneObjects": false,
-                "MaterialGroup": null,
-                "MaterialOverride": null,
                 "Model": "models/hands_discgolf/hand_toon_right.vmdl",
                 "RenderType": "On",
-                "Tint": "1,1,1,1"
+                "Tint": "1,1,1,1",
+                "UseAnimGraph": true
               },
               {
                 "__type": "VRHandAnimationController",
-                "__enabled": true,
+                "__guid": "f9bd3433-13b9-4937-ad3e-aab5c310b508",
                 "HandSide": "Right"
               }
             ]
           },
           {
-            "Id": "8ed6d307-534f-4020-bbd5-ca8086bce442",
+            "__guid": "eb0833e6-8789-4b7c-8b33-cbbb32076f13",
+            "Flags": 0,
             "Name": "grabpos",
             "Position": "-5,2,0",
             "Enabled": true
@@ -184,15 +217,17 @@
         ]
       },
       {
-        "Id": "abb669a5-ddc5-413a-84f3-72e0c085f20a",
+        "__guid": "12ad50bf-e490-4c0a-bd54-da58e080a56d",
+        "Flags": 0,
         "Name": "Object",
         "Rotation": "-0.000000002346994,-0.00000003950341,0.707107,0.7071065",
         "Enabled": true,
         "Components": [
           {
-            "__type": "WorldPanel",
-            "__enabled": true,
+            "__type": "Sandbox.WorldPanel",
+            "__guid": "6eb2180a-34f9-4191-9f13-45f1ed1631dd",
             "HorizontalAlign": "Center",
+            "InteractionRange": 1000,
             "LookAtCamera": false,
             "PanelSize": "775.5,512",
             "RenderScale": 1,
@@ -201,14 +236,15 @@
         ],
         "Children": [
           {
-            "Id": "82dbc09f-71c5-468d-b249-aafc1a9402a6",
+            "__guid": "132516c0-4fbe-4804-abe4-c12ace6e3f27",
+            "Flags": 0,
             "Name": "Object",
             "Rotation": "0,0,1,-0.0000006397578",
             "Enabled": true,
             "Components": [
               {
                 "__type": "SettingsUI",
-                "__enabled": true
+                "__guid": "2993a9cd-2828-4ea9-a4ff-1e26a9cb7a99"
               }
             ]
           }
@@ -219,8 +255,10 @@
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "ResourceVersion": 1,
   "__references": [
     "shadb.hand_toon_left",
     "shadb.hand_toon_right"
-  ]
+  ],
+  "__version": 1
 }

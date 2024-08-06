@@ -51,7 +51,21 @@ public sealed class VRLegs : Component
 		{
 			var spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
 			var randomSpawnPoint = new Transform( Vector3.Zero, Rotation.Identity );
-			if ( spawnPoints.Length > 0 ) randomSpawnPoint = spawnPoints[Random.Shared.Int( 0, spawnPoints.Length - 1 )].Transform.World;
+			if ( spawnPoints.Length > 0 )
+			{
+				randomSpawnPoint = spawnPoints[Random.Shared.Int( 0, spawnPoints.Length - 1 )].Transform.World;
+			}
+			else
+			{
+				if ( Scene.NavMesh.GetRandomPoint().HasValue )
+				{
+					randomSpawnPoint = new Transform( Scene.NavMesh.GetRandomPoint().Value, Rotation.Identity );
+				}
+				else
+				{
+					Scene.NavMesh.SetDirty();
+				}
+			}
 
 			Transform.World = randomSpawnPoint;
 			rigbod.Velocity = Vector3.Zero;
